@@ -1,0 +1,3564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Aa'in - Perfumes</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f3f2;
+            overflow-x: hidden;
+        }
+
+        /* --- Colores de Marca como Variables CSS (Púrpura) --- */
+        :root {
+            --aa-in-primary: #8C479B; 
+            --aa-in-hover: #7A3B85; 
+            --aa-in-dark: #683073; 
+            --aa-in-light: #C09CC8; 
+            --aa-in-extra-light: #F5F5F7; 
+            --aa-in-text-dark: #1A1A1A; 
+            --aa-in-legible-text: #3F3F3F; 
+            --aa-in-deep-accent: #5A2E8A; 
+            --aa-in-light-border: #C8B2D8; 
+            --aa-in-accent-neon: #F070B0; 
+        }
+        
+        /* --- Estilos para Sombra de Imagen (Mejora Premium - Suavizada) --- */
+        .image-shadow-premium {
+            /* Sombra más suave en el negro y sutil glow púrpura */
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15), 0 0 10px rgba(140, 71, 155, 0.3);
+            border: 1px solid var(--aa-in-light-border); /* Borde sutil para 'limpieza' */
+        }
+
+        /* --- Estilos Tom Select --- */
+        .ts-control {
+            border: 2px solid var(--aa-in-primary) !important;
+            border-radius: 10px !important;
+            padding: 6px !important;
+            min-height: 42px;
+            cursor: pointer;
+            box-shadow: none !important;
+        }
+
+        .ts-control input {
+            padding-left: 5px !important;
+        }
+
+        .ts-dropdown .option:hover {
+            background: var(--aa-in-extra-light) !important;
+            color: var(--aa-in-dark) !important;
+        }
+
+        .ts-control .item {
+            background-color: var(--aa-in-primary) !important;
+            color: white !important;
+            border-radius: 8px !important;
+            padding: 3px 8px !important;
+            margin-right: 4px;
+        }
+
+        .ts-control .remove {
+            color: white !important;
+            margin-left: 6px;
+        }
+
+        /* --- Estilos Títulos Uniformes y Espaciado --- */
+        .modal-title, .data-card .section-title {
+            font-size: 1.5rem; 
+            font-weight: 700;
+            color: var(--aa-in-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.1em; 
+            border-bottom: 1.5px solid var(--aa-in-light-border); 
+            padding-bottom: 5px;
+            margin-bottom: 5px; 
+            display: inline-block;
+        }
+
+        /* --- Estilos Tarjeta de Detalles --- */
+        .data-card {
+            background-color: var(--aa-in-extra-light);
+            padding: 15px; /* Reducido de 20px a 15px */
+            border-radius: 10px;
+            text-align: center; 
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+        }
+
+        /* AJUSTE: Mejorar el espaciado vertical de cada línea y aplicar Flexbox */
+        .data-grid {
+             text-align: left; 
+             padding: 8px 0; /* Reducido de 10px a 8px */
+        }
+        
+        .data-grid p {
+            line-height: 1.4; /* Línea más compacta */
+            margin-bottom: 8px; /* Reducido de 12px a 8px */
+            display: flex; /* Habilitar flexbox para alinear contenido interno */
+            align-items: flex-start; /* Alineación superior para contenido multilinea */
+        }
+
+        /* Aseguramos que la última línea no tenga un margen excesivo al final del contenedor */
+        .data-grid p:last-of-type,
+        .data-grid .col-span-2:last-child {
+            margin-bottom: 0;
+        }
+
+        .data-grid strong {
+            font-weight: 700; 
+            font-size: 1.1em; /* Aumentado ligeramente para legibilidad */
+            min-width: 140px; /* Ancho fijo para las etiquetas */
+            margin-right: 12px; 
+            flex-shrink: 0; 
+            color: var(--aa-in-dark); 
+        }
+        
+        .data-grid span {
+            font-weight: 500; 
+            font-size: 1.0em; /* Aumentado ligeramente para legibilidad */
+            flex-grow: 1; 
+        }
+
+        /* AJUSTE: Aumento de la fuente para la descripción */
+        .description-content {
+            font-size: 1.25rem; 
+            line-height: 1.6; 
+            color: var(--aa-in-legible-text); 
+            padding-left: 20px; 
+            padding-right: 20px;
+            margin-top: 15px; 
+        }
+
+
+        /* --- Estilos Pirámide Olfativa --- */
+        .olfactive-pyramid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 350px; 
+            margin: 15px auto 15px auto; 
+            position: relative;
+        }
+
+        .pyramid-segment {
+            font-weight: 400;
+            text-align: center;
+            padding: 8px 15px; 
+            margin-bottom: 4px; 
+            width: 100%; 
+            box-sizing: border-box;
+            border: 1px solid var(--aa-in-light); 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08); 
+            border-radius: 5px; 
+            transition: all 0.3s ease;
+        }
+
+        /* Creando la forma de pirámide visual */
+        .top-note { 
+            background: var(--aa-in-light); 
+            color: var(--aa-in-text-dark);
+            width: 70%; 
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .heart-note { 
+            background: var(--aa-in-primary); 
+            color: white; 
+            width: 90%; 
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .base-note { 
+            background: var(--aa-in-dark); 
+            color: white; 
+            width: 100%; 
+        }
+
+        .pyramid-segment strong {
+            font-size: 1.1em; 
+            font-weight: 800; 
+            display: block;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+        
+        /* AJUSTE: Símbolos Zodiacales AUMENTADOS (4em - GIGANTE) */
+        .zodiac-symbol {
+            font-size: 4em; 
+            color: var(--aa-in-deep-accent); 
+            margin-right: 8px; 
+            line-height: 1; 
+        }
+        
+        /* Estilos para el selector de tamaño (radio buttons) */
+        .size-radio-label {
+            display: block;
+            background-color: white;
+            padding: 10px;
+            border: 2px solid var(--aa-in-light-border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        
+        .size-radio-label:hover {
+            border-color: var(--aa-in-light);
+            box-shadow: 0 0 5px rgba(140, 71, 155, 0.2);
+        }
+        
+        input[name="perfume-size"]:checked + .size-radio-label {
+            background-color: var(--aa-in-primary);
+            color: white;
+            border-color: var(--aa-in-dark);
+            box-shadow: 0 2px 8px rgba(140, 71, 155, 0.4);
+        }
+        
+        /* Estilo para el ícono del carrito */
+        #cart-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--aa-in-dark);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        #cart-icon:hover {
+            background-color: var(--aa-in-primary);
+            transform: scale(1.05);
+        }
+        
+        #cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--aa-in-accent-neon);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 50%;
+            padding: 2px 6px;
+            line-height: 1;
+        }
+    </style>
+</head>
+
+<body class="p-4 sm:p-8">
+
+<header class="text-center mb-8">
+    <img src="Monochrome on Transparent.png" 
+     alt="Logo Aa'in: Alma, Corazón, Espíritu"
+     class="mx-auto mb-0 w-96 h-auto"
+     style="max-width: 15rem; height: auto;">
+        
+        <h1 class="text-4xl font-extrabold text-[--aa-in-primary] mb-2">Catálogo de Perfumes</h1>
+    <p class="text-gray-600">Explora la colección y encuentra tu aroma perfecto.</p>
+    
+    <div class="mt-4 p-2 inline-block bg-white rounded-lg shadow-md border border-[--aa-in-light-border]">
+        <p class="text-lg font-semibold text-[--aa-in-dark]">
+            Total de perfumes en catálogo: <span id="total-perfumes-count" class="text-2xl font-extrabold text-[--aa-in-primary]"></span>
+        </p>
+    </div>
+    </header>
+
+<section class="mb-8 p-4 bg-white rounded-xl shadow-lg">
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <div>
+            <h3 class="text-sm font-semibold text-gray-700 mb-2">Nombre en Aa’in (Alma, Corazón y Espíritu)</h3>
+            <select id="filter-nombre" multiple></select>
+        </div>
+
+        <div>
+            <h3 class="text-sm font-semibold text-gray-700 mb-2">Inspirado en:</h3>
+            <select id="filter-inspirado" multiple></select>
+        </div>
+
+        <div>
+            <h3 class="text-sm font-semibold text-gray-700 mb-2">Familia Olfativa</h3>
+            <select id="filter-familia" multiple></select>
+        </div>
+        
+        <div>
+            <h3 class="text-sm font-semibold text-gray-700 mb-2">Público Objetivo</h3>
+            <select id="filter-genero" multiple></select>
+        </div>
+
+
+        <div>
+            <h3 class="text-sm font-semibold text-gray-700 mb-2">Ocasión de uso</h3>
+            <select id="filter-ocasion" multiple></select>
+        </div>
+
+        <div>
+            <h3 class="text-sm font-semibold text-gray-700 mb-2">Signos Zodiacales</h3>
+            <select id="filter-signos" multiple></select>
+        </div>
+
+    </div>
+
+    <div class="mt-6 flex gap-3">
+
+        <button id="btn-buscar"
+                class="px-4 py-2 bg-[--aa-in-primary] text-white font-semibold rounded-xl hover:bg-[--aa-in-hover] transition">
+            Buscar
+        </button>
+
+        <button id="btn-reset"
+                class="px-4 py-2 bg-gray-200 text-gray-800 font-semibold rounded-xl hover:bg-gray-300 transition">
+            Limpiar filtros
+        </button>
+
+    </div>
+</section>
+
+
+<main id="perfume-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></main>
+
+<div id="no-results" class="text-center text-lg text-red-500 mt-10 hidden">
+    No se encontraron perfumes.
+</div>
+
+<div id="cart-icon" onclick="openCartModal()" class="hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+    </svg>
+    <span id="cart-count" class="hidden">0</span>
+</div>
+
+<div id="perfume-modal"
+     class="fixed inset-0 bg-black bg-opacity-70 hidden flex justify-center items-center p-4 z-50 overflow-y-auto"
+     onclick="closeModal('perfume-modal')">
+
+    <div class="bg-white rounded-xl p-8 w-full max-w-5xl overflow-x-hidden max-h-[95vh] overflow-y-auto" onclick="event.stopPropagation()">
+
+        <button onclick="closeModal('perfume-modal')" class="float-right text-gray-500 text-2xl leading-none">&times;</button>
+
+        <h2 id="modal-nombre" class="text-4xl font-extrabold text-[--aa-in-primary] mb-1"></h2>
+        <p id="modal-inspirado" class="text-base text-gray-500 mb-6 italic border-b border-gray-200 pb-4"></p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
+            
+            <div class="flex flex-col items-center pt-2"> 
+                
+                <img id="modal-imagen" src=""
+                     class="w-full h-auto max-h-[24rem] object-contain rounded-xl mb-3 mx-auto image-shadow-premium"
+                     onerror="this.src='https://placehold.co/400x400/EEE4F1/333?text=Aa%27in';">
+
+                <div class="data-card mt-4">
+                    <h3 class="section-title">Detalles del Producto</h3> 
+                    <div class="data-grid text-base text-[--aa-in-text-dark]"> 
+                        <p><strong>SKU:</strong> <span id="modal-sku"></span></p>
+                        
+                        <p><strong>Familia:</strong> <span id="modal-familia"></span></p>
+                        <p><strong>Ocasión:</strong> <span id="modal-ocasion"></span></p>
+                        <p><strong>Clima Ideal:</strong> <span id="modal-clima"></span></p>
+                        <p><strong>Uso Día/Noche:</strong> <span id="modal-uso-dia-noche-container"></span></p>
+                    </div>
+                </div>
+
+                <div class="data-card mt-4">
+                    <h3 class="section-title">Perfil del Usuario</h3> 
+                    <div class="data-grid text-base text-[--aa-in-text-dark]"> 
+                        <p><strong>Género:</strong> <span id="modal-genero"></span></p>
+                        <p><strong>Rango de Edad:</strong> <span id="modal-rango-edad"></span></p>
+                        
+                        <p><strong>Personalidad:</strong> <span id="modal-personalidad"></span></p>
+                        <p><strong>Estilo de Vida:</strong> <span id="modal-estilo-vida"></span></p>
+                    </div>
+                </div>
+
+                <div class="data-card mt-4">
+                    <h3 class="section-title">Compatibilidad Zodiacal</h3> 
+                    <div class="data-grid text-base text-[--aa-in-text-dark]"> 
+                         <ul id="modal-signos-list" class="list-none flex flex-wrap gap-x-4 gap-y-1 mt-2 justify-center w-full"></ul>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="flex flex-col items-center h-full pt-2"> 
+                
+                <div class="flex flex-col flex-grow w-full justify-around">
+
+                    <div class="w-full text-center py-4">
+                        <h3 class="modal-title">Pirámide Olfativa</h3>
+
+                        <div class="olfactive-pyramid">
+                            <div class="pyramid-segment top-note"> 
+                                <strong>NOTAS DE SALIDA</strong>
+                                <div id="modal-notas-salida"></div>
+                            </div>
+                            <div class="pyramid-segment heart-note">
+                                <strong>NOTAS DE CORAZÓN</strong>
+                                <div id="modal-notas-corazon"></div>
+                            </div>
+                            <div class="pyramid-segment base-note"> 
+                                <strong>NOTAS DE FONDO</strong>
+                                <div id="modal-notas-fondo"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-full text-center py-4"> 
+                        <h3 class="modal-title">Descripción</h3>
+                        <p id="modal-descripcion" 
+                           class="italic description-content">
+                        </p> 
+                    </div>
+                    
+                    <div class="w-full text-center py-4"> 
+                        <h3 class="modal-title">PRESENTACIONES Y PRECIOS</h3> 
+                        
+                        <form id="add-to-cart-form" class="mt-4 max-w-sm mx-auto">
+                            <div id="modal-sizes-container" class="grid grid-cols-3 gap-3">
+                                </div>
+                            
+                            <div class="mt-6">
+                                <button type="submit"
+                                    class="w-full py-3 px-4 text-center font-bold text-lg rounded-xl transition 
+                                            bg-[--aa-in-dark] text-white hover:bg-[--aa-in-hover] shadow-md flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"></path>
+                                    </svg>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <p class="text-sm text-gray-600 italic mt-4 max-w-sm mx-auto font-semibold">
+                            Fragancias inspiradas en perfumes de diseñador, con excelente calidad aromática. Se entregan en frascos elegantes de línea comercial, no originales.
+                        </p>
+                    </div>
+                
+                </div>
+                </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="cart-modal"
+     class="fixed inset-0 bg-black bg-opacity-70 hidden flex justify-center p-4 z-50 overflow-y-auto"
+     onclick="closeModal('cart-modal')">
+
+    <div class="bg-white rounded-xl p-8 w-full max-w-3xl overflow-y-auto" onclick="event.stopPropagation()">
+
+        <button onclick="closeModal('cart-modal')" class="float-right text-gray-500 text-2xl leading-none">&times;</button>
+        <h2 class="text-3xl font-extrabold text-[--aa-in-primary] mb-6 border-b pb-2">Tu Carrito de Compras</h2>
+
+        <div id="cart-items-container">
+            </div>
+        
+        <div id="cart-summary" class="mt-8 pt-4 border-t border-gray-200">
+            <div class="flex justify-between items-center text-xl font-bold mb-4">
+                <span>Total del Pedido:</span>
+                <span id="cart-total" class="text-[--aa-in-dark]"></span>
+            </div>
+            
+            <button onclick="checkoutWhatsapp()" id="btn-checkout"
+                    class="w-full py-3 px-4 text-center font-bold text-lg rounded-xl transition 
+                           bg-green-600 text-white hover:bg-green-700 shadow-md flex items-center justify-center disabled:opacity-50" disabled>
+                <svg class="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.0001 2.00007C6.47898 2.00007 2.00007 6.47898 2.00007 12.0001C2.00007 13.7547 2.49007 15.4227 3.39867 16.8521L2.08337 22.0001L7.33237 20.6698C8.71881 21.4322 10.3204 21.7828 12.0001 21.7828C17.5212 21.7828 22.0001 17.3039 22.0001 12.0001C22.0001 6.47898 17.5212 2.00007 12.0001 2.00007ZM16.6582 15.3524C16.4883 15.759 15.0247 16.5113 14.6859 16.7135C14.347 16.9157 14.088 16.9657 13.6814 16.8906C13.2748 16.8156 12.2855 16.4253 11.2384 15.5393C10.1912 14.6533 9.47167 13.5937 9.25584 13.2307C9.04001 12.8677 8.85292 12.5047 9.07684 12.1659C9.28317 11.827 9.50710 11.5367 9.69418 11.3128C9.88127 11.0889 10.1581 10.8753 10.4284 10.8129C10.6987 10.7505 10.989 10.7303 11.2384 10.7505C11.4878 10.7707 11.8341 10.7303 12.1386 11.4077C12.429 12.0851 12.5537 12.8025 12.4786 12.9272C12.4035 13.0519 12.2855 13.2021 12.0615 13.4354C11.8376 13.6687 11.6441 13.8824 11.4507 14.1064C11.3503 14.2183 11.2752 14.3184 11.1925 14.4185C11.0921 14.5097 10.9918 14.6198 10.9167 14.6949C10.8340 14.7701 10.6639 14.9317 10.7390 15.0564C10.8142 15.1811 11.7580 16.6372 13.0402 17.1550C14.3224 17.6728 14.4225 17.6104 14.5226 17.4955C14.6227 17.3807 14.7358 17.2191 14.8362 17.0945C14.9366 16.9796 15.0369 16.8795 15.1273 16.7968C15.2177 16.7141 15.3424 16.6390 15.4671 16.5563C15.6542 16.4316 16.0381 16.2701 16.4011 16.0830C16.5982 15.9829 16.7334 15.8680 16.8581 15.7532C17.0084 15.5847 17.0988 15.4698 17.1611 15.3697C17.2235 15.2696 17.1831 15.1547 17.1143 15.0546C17.0454 14.9545 16.8753 14.7701 16.6582 15.3524Z" fill="white"/>
+                </svg>
+                Finalizar Pedido por WhatsApp
+            </button>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+/* ================================
+   1) Precios y Configuración
+================================ */
+const priceOptions = [
+    { volume: '30 mL', price: 15000, display: '$15.000 COP' },
+    { volume: '60 mL', price: 25000, display: '$25.000 COP' },
+    { volume: '100 mL', price: 45000, display: '$45.000 COP' }
+];
+
+// === ¡CAMBIA ESTO CON TU NÚMERO DE TELÉFONO! ===
+// Debe incluir el código de país (ej. 573101234567 para Colombia)
+const whatsappNumber = "573219702946"; // ¡Número actualizado!
+
+// Formato de moneda para mostrar
+const formatPrice = (price) => {
+    return new Intl.NumberFormat('es-CO', { 
+        style: 'currency', 
+        currency: 'COP', 
+        minimumFractionDigits: 0 
+    }).format(price);
+};
+
+/* ================================
+   2) JSON — 3 Perfumes de prueba (Mismo que antes)
+================================ */
+const perfumesRaw = [
+  {
+    "Código único del perfume": "001",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Encanto Oscuro",
+    "Inspirado en": "Poison Dior",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "encanto_oscuro",
+    "Descripción olfativa": "Un opulento Oriental Floral especiado, definido por la riqueza narcótica del Nardo y la dulzura oscura de la Ciruela. El corazón especiado de Canela y la base balsámica de Opopónaco y Ámbar crean una estela densa, intensa y profundamente misteriosa.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Ciruela, Anís, Comino",
+    "Notas de corazón": "Jazmín, Rosa, Lirio de los valles",
+    "Notas de fondo": "Sándalo, Ámbar, Almizcle",
+    "Familia olfativa": "Oriental especiada",
+    "Ocasión de uso": "Eventos formales / ceremonias",
+    "Signos zodiacales asociados": "Escorpio, Tauro, Leo",
+    "Personalidad o carácter del usuario": "Misteriosx / seductorx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 55 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "002",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Elegancia Joven",
+    "Inspirado en": "Coco Mademoiselle Chanel",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "elegancia_joven",
+    "Descripción olfativa": "Un Chipre Floral luminoso y efervescente. La chispa de la Naranja de Sicilia y la Bergamota da paso a un corazón elegante de Rosa y Jazmín. La base de Pachulí y Vetiver ancla la composición con una sofisticación limpia y una estela inolvidablemente moderna.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Naranja, Mandarina, Durazno",
+    "Notas de corazón": "Jazmín, Rosa, Lirio de los valles",
+    "Notas de fondo": "Pachulí, Vetiver, Almizcle",
+    "Familia olfativa": "Floral amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Leo, Virgo, Sagitario",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "003",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Chica Audaz",
+    "Inspirado en": "Good Girl Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "chica_audaz",
+    "Descripción olfativa": "Un Gourmand Oriental y audaz que celebra la dualidad. La luminosidad del Jazmín Sambac y el Nardo se confronta con un poderoso acorde oscuro y adictivo de Cacao, Almendra y Café Tostado. Una fragancia de alto contraste, perfecta para la noche y la mujer de carácter.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Almendra, Café, Limón",
+    "Notas de corazón": "Jazmín, Nuez moscada, Rosa",
+    "Notas de fondo": "Vainilla, Cacao, Sándalo",
+    "Familia olfativa": "Floral amaderada",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Escorpio, Capricornio, Leo",
+    "Personalidad o carácter del usuario": "Audaz / aventurerx",
+    "Estilo de vida del usuario": "Sensual / encantadorx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "004",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Frescura Floral",
+    "Inspirado en": "Chloé Eau de Parfum Chloé",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "frescura_floral",
+    "Descripción olfativa": "Un Floral Atalcado y elegante. La frescura del Lichi y la Peonía se funde con un corazón ultra-femenino de Rosa y Magnolia. La base de Madera de Cedro y Ámbar confiere una sensación de limpieza jabonosa, pulcritud y sofisticación atemporal.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Litchi, Peonía, Rosa",
+    "Notas de corazón": "Jazmín, Muguet, Lirio",
+    "Notas de fondo": "Cedro, Almizcle, Ámbar",
+    "Familia olfativa": "Floral amaderada",
+    "Ocasión de uso": "Citas y salidas informales",
+    "Signos zodiacales asociados": "Libra, Cáncer, Tauro",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "005",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Dulzura Floral",
+    "Inspirado en": "Chance Eau Tendre Chanel",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "dulzura_floral",
+    "Descripción olfativa": "Un Floral Frutal de ligereza cristalina. La salida chispeante de Toronja y Membrillo se mezcla con un corazón delicado de Jazmín y Rosa. El fondo de Almizcle Blanco y el Ámbar lo hace etéreo, suave y de una elegancia juvenil y romántica.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Toronja, Membrillo",
+    "Notas de corazón": "Jazmín, Rosa, Iris",
+    "Notas de fondo": "Almizcle blanco, cedro",
+    "Familia olfativa": "Floral afrutada",
+    "Ocasión de uso": "Citas y salidas informales",
+    "Signos zodiacales asociados": "Cáncer, Libra, Piscis",
+    "Personalidad o carácter del usuario": "Románticx / delicadx",
+    "Estilo de vida del usuario": "Románticx / soñadorx",
+    "Edad del usuario": "18 a 35 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "006",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Clásico Inmortal",
+    "Inspirado en": "Chanel No 5 Parfum Chanel",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "clasico_inmortal",
+    "Descripción olfativa": "El arquetipo del Floral Aldehídico. La salida brillante de Aldehídos y Neroli da paso a un corazón opulento de Ylang-Ylang, Rosa de Mayo y Jazmín. Un fondo de Sándalo y Vainilla confiere una elegancia suprema, atemporal y empolvada.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Aldehídos, Neroli, Limón",
+    "Notas de corazón": "Rosa, Jazmín, Ylang-ylang",
+    "Notas de fondo": "Vetiver, Sándalo, Almizcle",
+    "Familia olfativa": "Floral aldehídica",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Capricornio, Virgo, Tauro",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "40 a 60 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "007",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Código de Atracción",
+    "Inspirado en": "Armani Code Parfum Giorgio Armani",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "codigo_de_atraccion",
+    "Descripción olfativa": "Un Oriental Especiado y enigmático. La frescura de la Bergamota cede ante un corazón de Flor de Olivo y Anís Estrellado. La base es oscura y envolvente, con un dominante acorde de Haba Tonka, Cuero Suave y Vainilla, confiriendo misterio y elegancia nocturna.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Bergamota, Limón, Naranja",
+    "Notas de corazón": "Aceite de oliva, Tabaco, Anís",
+    "Notas de fondo": "Cuero, Tonka, Madera de guayaco",
+    "Familia olfativa": "Oriental especiada",
+    "Ocasión de uso": "Citas y salidas informales",
+    "Signos zodiacales asociados": "Escorpio, Capricornio, Virgo",
+    "Personalidad o carácter del usuario": "Seductorx / empoderadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "008",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "El Emperador Moderno",
+    "Inspirado en": "Aventus Creed",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "el_emperador_moderno",
+    "Descripción olfativa": "La quintaesencia del Chipre Frutal masculino. Abre con una explosión de Piña Ahumada y Bergamota, evolucionando hacia un corazón de Abedul y Pachulí. Cierra con un fondo de Musgo de Roble y Ámbar Gris que confiere fuerza, longevidad y una presencia imponente.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Piña, Bergamota, Cassis",
+    "Notas de corazón": "Jazmín, Abedul, Pachulí",
+    "Notas de fondo": "Almizcle, Ámbar, Madera",
+    "Familia olfativa": "Amaderada frutal",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Aries, Leo, Sagitario",
+    "Personalidad o carácter del usuario": "Audaz / aventurerx",
+    "Estilo de vida del usuario": "Empoderadx / segurx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "009",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Aventura Incontrolable",
+    "Inspirado en": "Wanted Azzaro",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "aventura_incontrolable",
+    "Descripción olfativa": "Un Amaderado Especiado de intensidad vibrante. La combinación energética del Limón y el Jengibre se fusiona con la intensidad del Cardamomo. El fondo de Haba Tonka y Vetiver lo hace audaz, de estela potente y duradera.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Limón, Bergamota, Anís",
+    "Notas de corazón": "Jengibre, Manzana, Cardamomo",
+    "Notas de fondo": "Tonka, Ámbar, Madera",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Leo, Sagitario, Aries",
+    "Personalidad o carácter del usuario": "Audaz / aventurerx",
+    "Estilo de vida del usuario": "Optimistx / alegre",
+    "Edad del usuario": "25 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "010",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Elegancia Británica",
+    "Inspirado en": "Burberry Brit for Men Burberry",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "elegancia_britanica",
+    "Descripción olfativa": "Un Oriental Amaderado especiado. La salida cítrica de Bergamota y Mandarina Verde se mezcla con un corazón de Nuez Moscada y Almendra. El fondo de Haba Tonka y Ámbar Gris lo hace reconfortante, clásico y con una calidez sutil.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Limón, Mandarina, Canela",
+    "Notas de corazón": "Almendra, Grosella, Madera",
+    "Notas de fondo": "Ámbar, Tonka, Musgo",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Tauro, Virgo, Capricornio",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "011",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "El Misterio Sofisticado",
+    "Inspirado en": "Santal 33 Le Labo",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "el_misterio_sofisticado",
+    "Descripción olfativa": "Un Amaderado Aromático, con una elegancia rústica. La nota dominante de Sándalo Australiano y Cedro se ve realzada por la faceta áspera del Cuero y el toque especiado del Cardamomo. Un aroma seco, único y distintivo.",
+    "Género / Público": "Unisex",
+    "Notas de salida": "Cardamomo, Bergamota",
+    "Notas de corazón": "Iris, Cedro, Violetas",
+    "Notas de fondo": "Sándalo, Cuero, Almizcle",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Escorpio, Capricornio, Virgo",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "012",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Sutil y Misterioso",
+    "Inspirado en": "Molecule 01 Escentric Molecules",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "sutil_y_misterioso",
+    "Descripción olfativa": "Un Amaderado Almizclado deconstruido, centrado en la molécula Iso E Super. Crea una estela amaderada, etérea y aterciopelada de Madera de Cedro que se funde con la piel, percibida como sutilmente magnética por quien la lleva.",
+    "Género / Público": "Unisex",
+    "Notas de salida": "Iso E Super",
+    "Notas de corazón": "Almizcle, Cedro, Ambergris",
+    "Notas de fondo": "Almizcle, Madera",
+    "Familia olfativa": "Amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Acuario, Géminis, Virgo",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "25 a 50 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas o Nocturnas"
+  },
+  {
+    "Código único del perfume": "013",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Amanecer en Portofino",
+    "Inspirado en": "Neroli Portofino Tom Ford",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "amanecer_en_portofino",
+    "Descripción olfativa": "Un Cítrico Aromático Hespéride. Una inyección de Neroli Tunecino y la chispa de la Bergamota de Calabria. El corazón floral de Flor de Azahar y el fondo ámbar lo hacen luminoso, fresco y de una limpieza jabonosa de lujo.",
+    "Género / Público": "Unisex",
+    "Notas de salida": "Neroli, Bergamota, Mandarina",
+    "Notas de corazón": "Azahar, Flor de azahar, Jazmín",
+    "Notas de fondo": "Almizcle, Ámbar, Madera",
+    "Familia olfativa": "Cítrica floral",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Géminis, Libra, Acuario",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "25 a 50 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "014",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "El Lujo Árabe",
+    "Inspirado en": "Oud Wood Tom Ford",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "el_lujo_arabe",
+    "Descripción olfativa": "Un Amaderado Oriental nicho. El corazón se centra en la opulencia del Madera de Oud, el Sándalo cremoso y el Vetiver. Las especias exóticas (Cardamomo) y la base de Vainilla le dan un halo de sofisticación, misticismo y refinamiento.",
+    "Género / Público": "Unisex",
+    "Notas de salida": "Cardamomo, Pimienta, Jengibre",
+    "Notas de corazón": "Oud, Rosa, Sándalo",
+    "Notas de fondo": "Ámbar, Vainilla, Almizcle",
+    "Familia olfativa": "Oriental amaderada",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Escorpio, Capricornio, Virgo",
+    "Personalidad o carácter del usuario": "Misteriosx / seductorx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 60 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "015",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Esencia del Líder",
+    "Inspirado en": "K by Dolce & Gabbana Dolce&Gabbana",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "esencia_del_lider",
+    "Descripción olfativa": "Un Amaderado Aromático Fougère. La salida fresca de Cítricos y la Naranja Sanguina se fusiona con la nota dulce y verde de la Leche de Higo. La base de Cedro y Pachulí lo hace vibrante, elegante y con un aura de liderazgo moderno.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Naranja amarga, Limón, Mandarina",
+    "Notas de corazón": "Lavanda, Salvia, Cedro",
+    "Notas de fondo": "Vetiver, Pino, Musk",
+    "Familia olfativa": "Cítrica - Amaderada - Especiada",
+    "Ocasión de uso": "Eventos formales / ceremonias",
+    "Signos zodiacales asociados": "Leo, Aries, Sagitario, Capricornio.",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "016",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Círculo de Éxito",
+    "Inspirado en": "360° for Men Perry Ellis",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "circulo_de_exito",
+    "Descripción olfativa": "Un Aromático Especiado efervescente. Una explosión de Bergamota y Lavanda se mezcla con un corazón especiado de Canela y Clavos de Olor. El fondo amaderado lo hace limpio, vital y con una frescura atemporal.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Naranja, Limón, Lavanda",
+    "Notas de corazón": "Rosa, Canela, Jazmín",
+    "Notas de fondo": "Sándalo, Almizcle, Ámbar",
+    "Familia olfativa": "Cítrica - Especiada - Amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Géminis, Libra, Acuario, Aries",
+    "Personalidad o carácter del usuario": "Activo / aventurerx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "017",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Reflejo de Libertad",
+    "Inspirado en": "Polo Blue Parfum Ralph Lauren",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "reflejo_de_libertad",
+    "Descripción olfativa": "Un Fougère Acuático y cristalino. La salida se define por la frescura jugosa del Melón y el Pepino, contrastada por la intensidad aromática de la Albahaca. El fondo de Gamuza y Pachulí le da una base sofisticada y deportiva.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Melón, Mandarina, Pepino",
+    "Notas de corazón": "Albahaca, Salvia, Geranio",
+    "Notas de fondo": "Almizcle, Madera de roble, Ámbar",
+    "Familia olfativa": "Acuática - Fresca - Amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Géminis, Libra, Acuario, Sagitario",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "25 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "018",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Esencia Divina",
+    "Inspirado en": "Sofia Sofia Vergara",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "esencia_divina",
+    "Descripción olfativa": "Un Floral Frutal Amaderado y sensual. La dulzura de la Zarzamora y la Ciruela se fusiona con un corazón exótico de Orquídea y Rosa de Colombia. La base de Vainilla y Sándalo lo hace cálido, vibrante y profundamente femenino.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Notas frutales de grosella negra, ciruela y mandarina",
+    "Notas de corazón": "Mezcla floral de rosa, flor de frambuesa y orquídea",
+    "Notas de fondo": "Madera de sándalo, ámbar y vainilla",
+    "Familia olfativa": "Floral Frutal",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Tauro, Leo y Escorpio",
+    "Personalidad o carácter del usuario": "Románticx / delicadx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "019",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Sueño Amatista",
+    "Inspirado en": "Omnia Amethyste Bvlgari",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "sueno_amatista",
+    "Descripción olfativa": "Un Floral Amaderado Almizclado. La frescura del Pomelo Rosa y el Acorde Verde se fusiona con un corazón empolvado de Iris y Rosa Búlgara. El fondo de Heliotropo y Maderas Preciosas lo hace suave, floral y sutilmente elegante.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Ciruela, Bergamota",
+    "Notas de corazón": "Lirio, Jazmín",
+    "Notas de fondo": "Almizcle, Madera de sándalo",
+    "Familia olfativa": "Floral-frutal",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Libra, Acuario",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Audaz / modernx",
+    "Edad del usuario": "25 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "020",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Euforia Rosa",
+    "Inspirado en": "Dazzle Paris Hilton",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "euforia_rosa",
+    "Descripción olfativa": "Un Floral Frutal Gourmand chispeante. La dulzura de la Manzana Fuji y la Cereza se fusiona con un corazón opulento de Orquídea y Violeta. El fondo de Vainilla y Almizcle lo hace brillante, coqueto y alegre.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Frambuesa, Mandarina, Lichi",
+    "Notas de corazón": "Rosa, Jazmín, Flor de Naranjo",
+    "Notas de fondo": "Almizcle, Vainilla, Madera de cedro",
+    "Familia olfativa": "Floral-frutal",
+    "Ocasión de uso": "Eventos formales / ceremonias",
+    "Signos zodiacales asociados": "Géminis, Leo, Libra",
+    "Personalidad o carácter del usuario": "Activo / aventurerx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "20 a 35 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Diurnas o nocturnas"
+  },
+  {
+    "Código único del perfume": "021",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Hombre Clásico",
+    "Inspirado en": "Mr. Burberry Burberry",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "hombre_clasico",
+    "Descripción olfativa": "Un Amaderado Aromático especiado. La frescura del Pomelo y el Cardamomo se mezcla con un corazón herbal de Menta y Lavanda. El fondo de Sándalo, Gaiac y Vetiver lo hace moderno, limpio y con una elegancia sobria.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Pomelo, Menta, Cardamomo",
+    "Notas de corazón": "Abedul, Lavanda, Bébber",
+    "Notas de fondo": "Sándalo, Vetiver, Ámbar",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Leo, Capricornio, Virgo",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "022",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Oro Tentación",
+    "Inspirado en": "1 Million Parfum Rabanne",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "oro_tentacion",
+    "Descripción olfativa": "Un Especiado Amaderado de seducción ardiente. Combina la frescura de la Mandarina Sanguina con un corazón especiado de Canela y Rosa. La base de Acorde de Cuero y Ámbar proporciona una sensualidad cálida y una estela dorada y audaz.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Toronja, menta y mandarina roja",
+    "Notas de corazón": "Canela, rosa y notas especiadas",
+    "Notas de fondo": "Ámbar, cuero, notas amaderadas y pachulí hindú",
+    "Familia olfativa": "Oriental – Especiada",
+    "Ocasión de uso": "Eventos formales / ceremonias",
+    "Signos zodiacales asociados": "Leo, Escorpio, Aries, Sagitario — signos con presencia, carisma y fuego interior.",
+    "Personalidad o carácter del usuario": "Seductorx / empoderadx",
+    "Estilo de vida del usuario": "Audaz / modernx",
+    "Edad del usuario": "17 a 28 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "023",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Furia Escarlata",
+    "Inspirado en": "Polo Red Ralph Lauren",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "furia_escarlata",
+    "Descripción olfativa": "Un Amaderado Especiado vibrante. La intensidad de la Toronja Roja y el Arándano se fusiona con el corazón de Azafrán y Jengibre. El fondo de Madera de Cedro y Café le otorga una estela cálida, audaz y adictiva.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Arándano, toronja, limón italiano",
+    "Notas de corazón": "Azafrán, salvia",
+    "Notas de fondo": "Ámbar, café, maderas",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Citas y salidas informales",
+    "Signos zodiacales asociados": "Aries, Leo, Escorpio",
+    "Personalidad o carácter del usuario": "Seductorx / empoderadx",
+    "Estilo de vida del usuario": "Audaz / modernx",
+    "Edad del usuario": "20 a 40 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "024",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Éxtasis Rosado",
+    "Inspirado en": "You & I One Direction",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "extasis_rosado",
+    "Descripción olfativa": "Un Floral Frutal Gourmand juvenil. La explosión de Toronja y Mango se mezcla con un corazón delicado de Osmanthus y Orquídea. El fondo de Praliné y Almizcle lo hace dulce, romántico y vibrante.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Mango, toronja, cítricos",
+    "Notas de corazón": "Peonía, orquídea, flor del duraznero, osmanto",
+    "Notas de fondo": "Praliné, almizcle, sándalo",
+    "Familia olfativa": "Floral Frutal Gourmand",
+    "Ocasión de uso": "Citas y salidas informales",
+    "Signos zodiacales asociados": "Géminis, Libra, Cáncer",
+    "Personalidad o carácter del usuario": "Románticx / delicadx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "18 a 30 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "025",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Brisa Ártica",
+    "Inspirado en": "Hugo Iced Hugo Boss",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "brisa_artica",
+    "Descripción olfativa": "Un Aromático Acuático gélido. La frescura potente de la Menta Helada y el Té Verde se fusiona con un corazón especiado de Naranja Amarga. El fondo de Vetiver de Haití lo hace energizante, limpio y excepcionalmente fresco.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Menta helada, té salvaje",
+    "Notas de corazón": "Naranja amarga, enebro",
+    "Notas de fondo": "Vetiver",
+    "Familia olfativa": "Aromática Acuática / Verde-Amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Géminis, Acuario, Libra",
+    "Personalidad o carácter del usuario": "Activo / aventurerx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "18 a 35 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "026",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Pureza Blanca",
+    "Inspirado en": "Eau de Lacoste L.12.12. White Lacoste Fragrances",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "pureza_blanca",
+    "Descripción olfativa": "Un Amaderado Aromático limpio. La chispa del Pomelo y el Cardamomo se equilibra con un corazón floral puro de Nardo y Ylang-Ylang. El fondo de Gamuza y Vetiver lo hace pulcro, minimalista y muy versátil.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Pomelo, romero, cardamomo, hojas de cedro",
+    "Notas de corazón": "Ylang-ylang, nardos",
+    "Notas de fondo": "Cedro, cuero, vetiver, notas amaderadas",
+    "Familia olfativa": "Amaderada floral",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Virgo ?, Libra ?, Tauro ?",
+    "Personalidad o carácter del usuario": "Serenx / equilibradx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "20 a 45 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "027",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Refugio Nostálgico",
+    "Inspirado en": "Escape Calvin Klein",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "refugio_nostalgico",
+    "Descripción olfativa": "Un Floral Acuático de libertad. La salida se define por la jugosidad del Melón, el Lichi y la Manzanilla. El corazón de Jazmín y Rosa se asienta en un fondo de Sándalo y Vetiver, creando una estela fresca y etérea.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Melón, manzanilla, mandarina, manzana, lichi",
+    "Notas de corazón": "Rosa, flor de azahar, jazmín, clavel, durazno",
+    "Notas de fondo": "Sándalo, vetiver, almizcle, vainilla, cedro",
+    "Familia olfativa": "Floral Acuática con matices verdes y amaderados",
+    "Ocasión de uso": "Citas y salidas informales",
+    "Signos zodiacales asociados": "Cáncer, Libra, Piscis",
+    "Personalidad o carácter del usuario": "Serenx / equilibradx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "18 a 35 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "028",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Eterno Clásico",
+    "Inspirado en": "Jean Pascal Jean Pascal",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "eterno_clasico",
+    "Descripción olfativa": "Un Fougère Aromático clásico. La salida verde y especiada de Lavanda y Albahaca da paso a un corazón floral de Geranio y Clavel. La base de Musgo de Roble y Pachulí lo hace sofisticado, potente y de una masculinidad atemporal.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Especias, piña, verdes, bergamota",
+    "Notas de corazón": "Jazmín, lavanda",
+    "Notas de fondo": "Musgo de roble, ámbar, almizcle",
+    "Familia olfativa": "Aromática Fougere",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Capricornio, Tauro, Virgo",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 55 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Diurnas o nocturnas"
+  },
+  {
+    "Código único del perfume": "029",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Impulso Vital",
+    "Inspirado en": "CH Men Sport Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "impulso_vital",
+    "Descripción olfativa": "Un Aromático Especiado y vigoroso. La explosión de Toronja y Bergamota se fusiona con un corazón especiado de Salvia y Bayas de Enebro. El fondo de Sándalo y Musgo de Roble le otorga una base elegante, fresca y dinámica.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Bergamota, pomelo, salvia, notas acuáticas",
+    "Notas de corazón": "Enebro, pimienta, especias marinas",
+    "Notas de fondo": "Sándalo, musgo de roble, vetiver",
+    "Familia olfativa": "Amaderada – Aromática",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Aries, Sagitario, Géminis, Leo, Acuario",
+    "Personalidad o carácter del usuario": "Activo / aventurerx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "20 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas o nocturnas"
+  },
+  {
+    "Código único del perfume": "030",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": " Rosalya",
+    "Inspirado en": "Yum Yum Armaf",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "rosalya",
+    "Descripción olfativa": "Un Floral Frutal Gourmand moderno. La dulzura de la Pera y la Grosella Negra se mezcla con un corazón de Jazmín y Rosa. El fondo de Vainilla y Almizcle lo hace alegre, fresco y con una dulzura sofisticada.",
+    "Género / Público": "Mujer",
+    "Notas de salida": " Bergamota, naranja, cereza y frutos rojos",
+    "Notas de corazón": " Rosa, flores blancas y vainilla",
+    "Notas de fondo": " Notas atalcadas, almizcle y ámbar",
+    "Familia olfativa": " Floral Frutal",
+    "Ocasión de uso": "Eventos formales / ceremonias",
+    "Signos zodiacales asociados": " Tauro, Libra y Cáncer",
+    "Personalidad o carácter del usuario": "Frescx / natural",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "18 y 35 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas o nocturnas"
+  },
+  {
+    "Código único del perfume": "031",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": " Marvento",
+    "Inspirado en": "Blue Seduction Antonio Banderas",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "marvento",
+    "Descripción olfativa": "Un Aromático Acuático Mediterráneo. La frescura del Melón y la Menta se fusiona con el Acorde Marino y un toque especiado de Cardamomo. El fondo de Ámbar y Madera lo hace ligero, energizante y sutilmente seductor.",
+    "Género / Público": "Unisex",
+    "Notas de salida": " Melón, bergamota, menta, grosellas negras",
+    "Notas de corazón": " Agua de mar, manzana verde, capuchino, cardamomo, nuez moscada",
+    "Notas de fondo": " Notas amaderadas, ámbar",
+    "Familia olfativa": " Aromática Fougère",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": " Géminis, Libra y Acuario, por su carácter fresco, sociable y seductor",
+    "Personalidad o carácter del usuario": "Frescx / natural",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "18 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas o nocturnas"
+  },
+  {
+    "Código único del perfume": "032",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Refrescante Oceánico",
+    "Inspirado en": "Aqva Pour Homme Bvlgari",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "refrescante_oceanico",
+    "Descripción olfativa": "Un Aromático Acuático mineral. La frescura de la Naranja y la Bergamota se fusiona con el inusual acorde de Algas Marinas (Posidonia). El fondo de Ámbar y Cedro lo hace salino, limpio y de una pureza oceánica.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Naranja, Mandarina, Pomelo",
+    "Notas de corazón": "Algodón, Hojas de violeta",
+    "Notas de fondo": "Madera de cedro, Ámbar, Algas marinas",
+    "Familia olfativa": "Acuática especiada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Cáncer, Piscis, Libra",
+    "Personalidad o carácter del usuario": "Frescx / natural",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "033",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Frescura que Inspira",
+    "Inspirado en": "Tommy Girl Tommy Hilfiger",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "frescura_que_inspira",
+    "Descripción olfativa": "Un Floral Cítrico Verde de energía. La chispa del Camellia y la Mandarina se fusiona con un corazón herbal de Menta y Té. El fondo de Madera de Sándalo lo hace limpio, radiante y perfecto para el espíritu libre.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Grosella negra, camelia, mandarina, manzano en flor",
+    "Notas de corazón": "Lirio, violeta, rosa, madreselva, limón, menta",
+    "Notas de fondo": "Jazmín, magnolia, cedro, sándalo",
+    "Familia olfativa": "Floral – Cítrica",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Géminis, Libra, Sagitario, Acuario.",
+    "Personalidad o carácter del usuario": "Joven / optimista",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "16 a 30 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "034",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Triunfo Ardiente",
+    "Inspirado en": "Invictus Victory – Rabanne",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "triunfo_ardiente",
+    "Descripción olfativa": "Un Oriental Amaderado Extremo. La salida fresca de Limón y Pimienta Rosa se mezcla con el Incienso y el Acorde de Lavanda. El fondo de Vainilla de Madagascar y Haba Tonka lo hace dulce, oscuro y poderosamente adictivo.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Limón, pimienta rosa",
+    "Notas de corazón": "Lavanda, incienso",
+    "Notas de fondo": "Vainilla, haba tonka, ámbar, madera ahumada",
+    "Familia olfativa": "Oriental – Amaderada – Especiada",
+    "Ocasión de uso": "Eventos formales / ceremonias",
+    "Signos zodiacales asociados": "Aries, Leo, Escorpio, Capricornio.",
+    "Personalidad o carácter del usuario": "Seductorx / empoderadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "20 a 45 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "035",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Elegancia Rebelde",
+    "Inspirado en": "Valentino Uomo Born in Roma Valentino",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "elegancia_rebelde",
+    "Descripción olfativa": "Un Amaderado Aromático Salino. La frescura mineral de las Sales Marinas y la Hojas de Violeta se mezcla con la Salvia. El fondo de Vetiver Ahumado y Madera de Cedro lo hace vibrante, limpio y con una sofisticación urbana.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Salvia, jengibre, vetiver ahumado",
+    "Notas de corazón": "Lavanda, iris, acordes minerales",
+    "Notas de fondo": "Maderas vibrantes, vainilla, cuero suave",
+    "Familia olfativa": "Ambarada – Amaderada",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Leo, Libra, Escorpio, Acuario.",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Audaz / modernx",
+    "Edad del usuario": "20 a 40 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Diurnas o nocturnas"
+  },
+  {
+    "Código único del perfume": "036",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Elegancia Atemporal",
+    "Inspirado en": "Burberry Women Burberry",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "elegancia_atemporal",
+    "Descripción olfativa": "Un Floral Frutal de calidez. La dulzura del Durazno y la Pera se fusiona con un corazón floral de Sándalo y Jazmín. El fondo de Vainilla y Ámbar lo hace reconfortante, elegante y suavemente femenino.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Grosella negra, durazno, albaricoque, pera, manzana verde",
+    "Notas de corazón": "Jazmín, musgo, madera de sándalo, musgo de roble",
+    "Notas de fondo": "Almizcle, vainilla, cedro",
+    "Familia olfativa": "Oriental – Amaderada – Frutal",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Tauro, Virgo, Capricornio, Libra.",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Diurnas o nocturnas"
+  },
+  {
+    "Código único del perfume": "037",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Dulce Encanto",
+    "Inspirado en": "Fantasy Britney Spears",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "dulce_encanto",
+    "Descripción olfativa": "Un Gourmand Frutal ultra-adictivo. La chispa del Lichi y el Kiwi se une al corazón de Cupcake y Orquídea. El fondo de Chocolate Blanco y Almizcle lo hace intensamente dulce, cremoso y juvenil.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Lichi rojo, membrillo dorado, kiwi",
+    "Notas de corazón": "Cupcake, jazmín, orquídea blanca, chocolate blanco",
+    "Notas de fondo": "Almizcle, raíz de lirio, maderas cremosas",
+    "Familia olfativa": "Floral – Frutal – Gourmand",
+    "Ocasión de uso": "Eventos formales / ceremonias",
+    "Signos zodiacales asociados": "Piscis, Libra, Sagitario, Aries.",
+    "Personalidad o carácter del usuario": "Divertidx / optimista",
+    "Estilo de vida del usuario": "Románticx / soñadorx",
+    "Edad del usuario": "16 a 30 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas o nocturnas"
+  },
+  {
+    "Código único del perfume": "038",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Héroe Urbano",
+    "Inspirado en": "212 Heroes Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "heroe_urbano",
+    "Descripción olfativa": "Un Aromático Frutal Fougère. La salida fresca de Pera y Jengibre se fusiona con un corazón de Salvia y Geranio. El fondo de Cuero y Almizcle lo hace vibrante, moderno y con una frescura energizante.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Pera, jengibre, limón",
+    "Notas de corazón": "Geranio, salvia, hojas de cannabis",
+    "Notas de fondo": "Almizcle, cuero",
+    "Familia olfativa": "Aromática – Fougere",
+    "Ocasión de uso": "Citas y salidas informales",
+    "Signos zodiacales asociados": "Aries, Géminis, Leo, Libra y Sagitario.",
+    "Personalidad o carácter del usuario": "Creativx / únicx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "20 a 35 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas o nocturnas"
+  },
+  {
+    "Código único del perfume": "039",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Unidad Esencial",
+    "Inspirado en": "CK One Calvin Klein",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "unidad_esencial",
+    "Descripción olfativa": "Un Cítrico Aromático Unisex. La mezcla de Té Verde, Bergamota y Piña proporciona una sensación de pureza y limpieza inigualable. El fondo almizclado lo hace ligero, versátil y un verdadero ícono de la sencillez.",
+    "Género / Público": "Unisex",
+    "Notas de salida": "Bergamota, Limón, Mandarina, Papaya, Té verde",
+    "Notas de corazón": "Jazmín, Violeta, Lirio del valle, Nuez moscada, Rosa",
+    "Notas de fondo": "Almizcle, Ámbar, Sándalo, Cedro",
+    "Familia olfativa": "Cítrica floral almizclada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Géminis, Libra, Acuario, Virgo",
+    "Personalidad o carácter del usuario": "Frescx / natural",
+    "Estilo de vida del usuario": "Audaz / modernx",
+    "Edad del usuario": "18 a 35 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "040",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Elegancia Serena",
+    "Inspirado en": "Bvlgari Pour Homme Bvlgari",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "elegancia_serena",
+    "Descripción olfativa": "Un Amaderado Almizclado de serenidad. La frescura del Té Darjeeling y la Bergamota se fusiona con un corazón especiado de Cardamomo y Pimienta. El fondo de Almizcle y Madera de Gaiac lo hace limpio, elegante y sutil.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Té Darjeeling, Bergamota, Flor de azahar",
+    "Notas de corazón": "Cardamomo, Pimienta, Rosa, Guayaco",
+    "Notas de fondo": "Almizcle, Ámbar, Madera de cedro",
+    "Familia olfativa": "Amaderada floral almizclada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Tauro, Virgo, Capricornio",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 55 años",
+    "Clima equivalente en Colombia": "Templado / Variable",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "041",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Impulso",
+    "Inspirado en": "Tommy Now Tommy Hilfiger",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "impulso",
+    "Descripción olfativa": "Un Aromático Especiado vigoroso. La explosión de Bergamota y Mandarina se mezcla con un corazón especiado de Cardamomo y Jengibre. El fondo de Vetiver y Cachemira lo hace moderno, dinámico y con una frescura especiada.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Bergamota, mandarina, cardamomo",
+    "Notas de corazón": "Geranio, jengibre, lavanda",
+    "Notas de fondo": "Amberwood, musgo",
+    "Familia olfativa": "Aromática Especiada Amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Aries, Sagitario, Géminis, Leo",
+    "Personalidad o carácter del usuario": "Joven / optimista",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "35 a 50 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas o nocturnas"
+  },
+  {
+    "Código único del perfume": "042",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": " Mar Azul ",
+    "Inspirado en": "Nautica Voyage Nautica",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "mar_azul",
+    "Descripción olfativa": "Un Floral Acuático Amaderado. La frescura de la Manzana y las Hojas Verdes se fusiona con el corazón acuático del Loto y la Mimosa. El fondo de Cedro y Almizcle lo hace limpio, revitalizante y evocador de la brisa oceánica.",
+    "Género / Público": "Hombre",
+    "Notas de salida": " Manzana verde, hojas verdes ",
+    "Notas de corazón": " Mimosa, flor de loto, jazmín ",
+    "Notas de fondo": " Cedro, musgo, ámbar, almizcle ",
+    "Familia olfativa": " Acuática – Amaderada ",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Cáncer, Piscis, Acuario, Sagitario ",
+    "Personalidad o carácter del usuario": "Activo / aventurerx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "20 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": " Diurnass "
+  },
+  {
+    "Código único del perfume": "043",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "El Hombre Audaz",
+    "Inspirado en": "Bvlgari Man In Black Bvlgari",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "el_hombre_audaz",
+    "Descripción olfativa": "Un Oriental Especiado neo-clásico. La nota de Ron y Tabaco se mezcla con un corazón de Iris y Cuero Aspero. La base de Haba Tonka y Benjuí lo hace cálido, licoroso, potente y de una masculinidad audaz.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Ron, Pimienta, Mandarina",
+    "Notas de corazón": "Iris, Geranio, Caña de azúcar",
+    "Notas de fondo": "Cuero, Ámbar, Madera",
+    "Familia olfativa": "Oriental especiada",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Escorpio, Leo, Aries",
+    "Personalidad o carácter del usuario": "Audaz / aventurerx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "044",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Luz Dorada ",
+    "Inspirado en": "S Shakira",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "luz_dorada",
+    "Descripción olfativa": "Un Floral Oriental suave. La frescura del Jazmín y la Gardenia se fusiona con la dulzura de la Vainilla y el toque balsámico del Sándalo y el Benjuí. Una fragancia suave, sensual y llena de energía positiva.",
+    "Género / Público": "Mujer",
+    "Notas de salida": " Jazmín sambac, frutas cítricas ",
+    "Notas de corazón": " Ámbar, benjuí, flor de azahar del naranjo ",
+    "Notas de fondo": " Vainilla, sándalo, almizcle ",
+    "Familia olfativa": " Oriental – Floral ",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": " Leo, Libra, Tauro, Piscis ",
+    "Personalidad o carácter del usuario": "Joven / optimista",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": " 18 a 40 años ",
+    "Clima equivalente en Colombia": "Templado / Variable",
+    "Ocasiones nocturnas o diurnas": "Diurnas o nocturnas"
+  },
+  {
+    "Código único del perfume": "045",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Ainara",
+    "Inspirado en": "Bombshell Victoria's Secret",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "ainara",
+    "Descripción olfativa": "Un Floral Frutal vibrante. La chispa del Maracuyá y la Toronja se fusiona con un corazón de Peonía Shangri-la y Orquídea de Vainilla. El fondo de Almizcle y Maderas Claras lo hace fresco, coqueto y seductor.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Mandarina, piña, maracuyá, fresa, toronja (pomelo)",
+    "Notas de corazón": "Peonía, jazmín, lirio de los valles, orquídea vainilla roja, bayas rojas",
+    "Notas de fondo": "Almizcle, notas amaderadas, musgo de roble",
+    "Familia olfativa": "Floral Frutal",
+    "Ocasión de uso": "Eventos formales / ceremonias",
+    "Signos zodiacales asociados": "Géminis, Leo, Libra y Sagitario",
+    "Personalidad o carácter del usuario": "Joven / optimista",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "20 a 35 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas o nocturnas"
+  },
+  {
+    "Código único del perfume": "046",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Enigma 9",
+    "Inspirado en": "9pm Afnan",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "enigma_9",
+    "Descripción olfativa": "Un Oriental Gourmand de magnetismo. La dulzura de la Manzana y la Canela se fusiona con un corazón floral de Lirio de los Valles y Azahar. El fondo de Vainilla, Ámbar y Pachulí lo hace cálido, potente y muy sensual para la noche.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Manzana, canela, lavanda, bergamota.",
+    "Notas de corazón": "Flor de azahar, lirio de los valles",
+    "Notas de fondo": "Vainilla, haba tonka, ámbar, pachulí",
+    "Familia olfativa": "Oriental – Vainilla",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Escorpión, Sagitario y Leo.",
+    "Personalidad o carácter del usuario": "Misteriosx / seductorx",
+    "Estilo de vida del usuario": "Empoderadx / segurx",
+    "Edad del usuario": "20 a 40 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "047",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Encanto Rosado",
+    "Inspirado en": "Pure Seduction Victoria's Secret",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "encanto_rosado",
+    "Descripción olfativa": "Un Floral Frutal de coquetería. La dulzura jugosa de la Ciruela Roja se fusiona con el corazón floral brillante de la Fresia. Una fragancia lineal, fresca y con una dulzura ligera y enérgica.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Ciruela roja, manzana.",
+    "Notas de corazón": "Fresia, jazmín.",
+    "Notas de fondo": "Almizcle, ámbar, vainilla suave.",
+    "Familia olfativa": "Floral Frutal",
+    "Ocasión de uso": "Citas y salidas informales",
+    "Signos zodiacales asociados": "Tauro, Cáncer y Libra. ",
+    "Personalidad o carácter del usuario": "Románticx / delicadx",
+    "Estilo de vida del usuario": "Sensual / encantadorx",
+    "Edad del usuario": "18 a 35 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "048",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Clásico Atemporal",
+    "Inspirado en": "Eternity For Men Calvin Klein",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "clasico_atemporal",
+    "Descripción olfativa": "Un Fougère Aromático atemporal. La apertura se define por la frescura herbácea de la Lavanda y el Mandarina. El corazón especiado de Albahaca y Salvia descansa sobre una base de Maderas de Cedro y Sándalo. Un aroma reconfortante, limpio y maduro.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Mandarina, Lavanda, Bergamota",
+    "Notas de corazón": "Jazmín, Geranio",
+    "Notas de fondo": "Sándalo, Vetiver, Almizcle",
+    "Familia olfativa": "Aromática floral",
+    "Ocasión de uso": "Citas y salidas informales",
+    "Signos zodiacales asociados": "Libra, Tauro, Cáncer",
+    "Personalidad o carácter del usuario": "Románticx / delicadx",
+    "Estilo de vida del usuario": "Románticx / soñadorx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "049",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Estilo Urbano",
+    "Inspirado en": "212 Men Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "estilo_urbano",
+    "Descripción olfativa": "Un Amaderado Floral Almizclado. La frescura del Pomelo y la Pimienta se mezcla con el corazón especiado de Jengibre y Gardenia. El fondo de Sándalo, Incienso y Almizcle lo hace limpio, vibrante y dinámico.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Pomelo, Mandarina, Jengibre",
+    "Notas de corazón": "Sándalo, Violeta",
+    "Notas de fondo": "Almizcle, Cedro, Musgo",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Virgo, Libra, Tauro",
+    "Personalidad o carácter del usuario": "Profesional / líder",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "050",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Frescura Contundente",
+    "Inspirado en": "212 Men Aqua Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "frescura_contundente",
+    "Descripción olfativa": "Un Aromático Acuático revitalizante. La frescura gélida de la Menta y el Acorde Marino se fusiona con un corazón floral de Flor de Loto y Jazmín. El fondo de Vetiver y Sándalo lo hace energizante, limpio y perfecto para el verano.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Menta, Flor de loto, Pimienta",
+    "Notas de corazón": "Geranio, Pelargonio",
+    "Notas de fondo": "Cedro, Sándalo, Almizcle",
+    "Familia olfativa": "Acuático especiado",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Géminis, Sagitario, Aries",
+    "Personalidad o carácter del usuario": "Frescx / natural",
+    "Estilo de vida del usuario": "Optimistx / alegre",
+    "Edad del usuario": "20 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "051",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Fuerza de la Noche",
+    "Inspirado en": "212 VIP Black Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "fuerza_de_la_noche",
+    "Descripción olfativa": "Un Oriental Fougère especiado. La intensidad de la Pimienta Negra y el Absenta se fusiona con un corazón de Lavanda. El fondo de Vainilla, Ámbar y Vetiver lo hace oscuro, potente y con un carácter cautivador.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Pimienta negra, Bergamota",
+    "Notas de corazón": "Violeta, Lavanda",
+    "Notas de fondo": "Vetiver, Musgo, Pachulí",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Capricornio, Leo, Sagitario",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "052",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Ritmo de la Ciudad",
+    "Inspirado en": "212 NYC Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "ritmo_de_la_ciudad",
+    "Descripción olfativa": "Un Amaderado Floral Almizclado, inspirado en la metrópolis. La chispa del Jengibre y la Pimienta se fusiona con un corazón floral de Gardenia. El fondo de Incienso y Madera de Gaiac lo hace limpio, vibrante y moderno.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Jengibre, Mandarina, Pimienta",
+    "Notas de corazón": "Geranio, Sándalo",
+    "Notas de fondo": "Pachulí, Madera de guayaco",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Leo, Sagitario, Aries",
+    "Personalidad o carácter del usuario": "Urbano / moderno",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "25 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "053",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Fiesta Exclusiva",
+    "Inspirado en": "212 VIP Men Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "fiesta_exclusiva",
+    "Descripción olfativa": "Un Oriental Especiado Licoroso. El acorde de Ron y Maracuyá crea una apertura embriagadora, fusionándose con la frescura de la Menta. La base de Cuero, Ámbar y Haba Tonka lo hace sofisticado, nocturno y de alta sensualidad.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Maracuyá, Lima, Jengibre",
+    "Notas de corazón": "Ron, Geranio, Pimienta",
+    "Notas de fondo": "Cuero, Sándalo, Almizcle",
+    "Familia olfativa": "Oriental especiada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Aries, Leo, Escorpio",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Empoderadx / segurx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "054",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Rebelde con Estilo",
+    "Inspirado en": "Bad Boy Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "rebelde_con_estilo",
+    "Descripción olfativa": "Un Oriental Especiado Amaderado. La chispa del Pomelo y la Pimienta Blanca se confronta con un corazón de Salvia y Cedro. El fondo de Cacao, Haba Tonka y Ámbar lo hace cálido, dulce y con una dualidad audaz.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Pimienta, Bergamota, Salvia",
+    "Notas de corazón": "Cedro, Sándalo",
+    "Notas de fondo": "Haba tonka, Almizcle",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Aries, Escorpio, Leo",
+    "Personalidad o carácter del usuario": "Audaz / aventurerx",
+    "Estilo de vida del usuario": "Empoderadx / segurx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "055",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Hombre Elegante",
+    "Inspirado en": "CH Men Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "hombre_elegante",
+    "Descripción olfativa": "Un Oriental Especiado y elegante. La frescura de la Bergamota y el Acorde Verde se mezcla con un corazón vibrante de Azafrán y Nuez Moscada. El fondo de Cuero Suave, Sándalo y Ámbar define una estela sofisticada y cálida.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Bergamota, Azafrán, Limón",
+    "Notas de corazón": "Rosa, Azúcar, Canela",
+    "Notas de fondo": "Cuero, Madera, Ámbar",
+    "Familia olfativa": "Oriental especiada",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Escorpio, Tauro, Virgo",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Empoderadx / segurx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "056",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Lujo Sensual",
+    "Inspirado en": "CH Men Prive Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "lujo_sensual",
+    "Descripción olfativa": "Un Amaderado Oriental Licoroso. El acorde de Whisky y Cuero es el corazón, rodeado por la frescura de la Lavanda y el toque especiado del Cardamomo. La base de Haba Tonka y Benjuí lo hace elegante, denso y profundamente audaz.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Mandarina, Azafrán, Limón",
+    "Notas de corazón": "Geranio, Lavanda, Rosa",
+    "Notas de fondo": "Cuero, Madera de gaiac, Tonka",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Aries, Leo, Escorpio",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sensual / encantadorx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "057",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Tradición Moderna",
+    "Inspirado en": "Herrera For Men Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "tradicion_moderna",
+    "Descripción olfativa": "Un Fougère Aromático Amaderado. La frescura cítrica de Limón y Neroli se fusiona con el corazón aromático de la Lavanda y el Clavel. El fondo de Sándalo, Cedro y Ámbar lo hace clásico, pulcro y atemporal.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Limón, Bergamota, Lavanda",
+    "Notas de corazón": "Clavo, Pimienta, Geranio",
+    "Notas de fondo": "Sándalo, Vetiver, Almizcle",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Virgo, Tauro, Cáncer",
+    "Personalidad o carácter del usuario": "Activo / aventurerx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "058",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Libertad Masculina",
+    "Inspirado en": "Bleu de Chanel Chanel",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "libertad_masculina",
+    "Descripción olfativa": "Un Amaderado Aromático que desafía las convenciones. La frescura vigorizante de la Toronja y la Menta se fusiona con la profundidad del Incienso y las Maderas de Cedro y Sándalo. Una composición elegante, versátil y con una estela limpia y sofisticada.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Limón, Menta, Jengibre",
+    "Notas de corazón": "Jazmín, Nuez moscada",
+    "Notas de fondo": "Sándalo, Cedro, Almizcle",
+    "Familia olfativa": "Amaderada aromática",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Leo, Sagitario, Aries",
+    "Personalidad o carácter del usuario": "Frescx / natural",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "059",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Fuerza Salvaje",
+    "Inspirado en": "Sauvage Dior",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "fuerza_salvaje",
+    "Descripción olfativa": "Un Fougère Aromático moderno y radiante. La Bergamota de Calabria en la salida es arrolladora, contrastada por la faceta especiada de la Pimienta de Sichuan y la potencia mineral y amaderada del Ambroxan. Crudo, noble y de altísima fijación.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Bergamota, Pimienta",
+    "Notas de corazón": "Lavanda, Sándalo",
+    "Notas de fondo": "Ámbar, Almizcle",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Aries, Leo, Sagitario",
+    "Personalidad o carácter del usuario": "Audaz / aventurerx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "060",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Amanecer Azul",
+    "Inspirado en": "Acqua di Gio Giorgio Armani",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "amanecer_azul",
+    "Descripción olfativa": "Un Acuático Aromático, la esencia de la libertad. La frescura salina de las Notas Marinas se equilibra con la acidez cítrica de la Bergamota y la transparencia floral del Jazmín. Un clásico atemporal, limpio y masculino.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Limón, Naranja, Bergamota",
+    "Notas de corazón": "Jazmín, Rosas, Calone",
+    "Notas de fondo": "Pachulí, Almizcle, Cedro",
+    "Familia olfativa": "Cítrica acuática",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Piscis, Libra, Tauro",
+    "Personalidad o carácter del usuario": "Frescx / natural",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "061",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Caballerosidad Moderna",
+    "Inspirado en": "Gentleman Eau de Parfum Givenchy",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "caballerosidad_moderna",
+    "Descripción olfativa": "Un Amaderado Floral Ambarino. La frescura de la Pera se fusiona con la faceta empolvada del Iris y el toque especiado de la Pimienta Negra. El fondo balsámico de Pachulí y Vainilla le confiere una elegancia cálida y adictiva.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Pimienta, Mandarina",
+    "Notas de corazón": "Iris, Lavanda, Geranio",
+    "Notas de fondo": "Cuero, Pachulí, Cedro",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Eventos formales / ceremonias",
+    "Signos zodiacales asociados": "Tauro, Leo, Virgo",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "062",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "El Hombre Rebelde",
+    "Inspirado en": "Gucci Guilty Gucci",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "el_hombre_rebelde",
+    "Descripción olfativa": "Un Amaderado Aromático sobrio. La frescura clásica de la Lavanda y el Limón se complementa con un corazón especiado de Cilantro. El anclaje de Cedro y Pachulí lo hace elegante, atemporal y versátil.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Lavanda, Limón, Mandarina",
+    "Notas de corazón": "Azúcar, Palo de rosa, Jazmín",
+    "Notas de fondo": "Cedro, Pachulí, Almizcle",
+    "Familia olfativa": "Amaderada floral",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Aries, Leo, Sagitario",
+    "Personalidad o carácter del usuario": "Audaz / aventurerx",
+    "Estilo de vida del usuario": "Audaz / modernx",
+    "Edad del usuario": "25 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "063",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Fuerza Natural",
+    "Inspirado en": "Terre d'Hermès Hermès",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "fuerza_natural",
+    "Descripción olfativa": "Un Amaderado Especiado Mineral. Un relato olfativo de la tierra y sus elementos, con una vibrante Naranja Amarga en la salida, un corazón de Sílex (nota mineral) y una base robusta de Cedro y Vetiver de Haití. Elegancia austera y terrosa.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Naranja, Pomelo, Pimienta",
+    "Notas de corazón": "Geranio, Pelargonio, Violeta",
+    "Notas de fondo": "Vetiver, Cedro, Pachulí",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Capricornio, Tauro, Virgo",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Empoderadx / segurx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Templado / Variable",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "064",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "El Hombre Contundente",
+    "Inspirado en": "Boss Bottled Hugo Boss",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "el_hombre_contundente",
+    "Descripción olfativa": "Un Amaderado Especiado, el arquetipo de la versatilidad. La nota de Manzana y la Canela crean un dulzor especiado y reconfortante. El fondo de Sándalo y Cedro lo convierte en una elección profesional, cálida y de uso diario.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Manzana, Limón, Bergamota",
+    "Notas de corazón": "Canela, Clavo, Geranio",
+    "Notas de fondo": "Sándalo, Cedro, Vainilla",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Leo, Aries, Capricornio",
+    "Personalidad o carácter del usuario": "Profesional / líder",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "065",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "El Encanto Seductor",
+    "Inspirado en": "Boss The Scent Hugo Boss",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "el_encanto_seductor",
+    "Descripción olfativa": "Un Amaderado Especiado sensual. La nota de Jengibre y Maninka (fruto afrodisíaco) crea un acorde frutal y licoroso. La base de Cuero y Maderas lo hace profundo, seductor y de cercanía.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Jengibre, Bergamota",
+    "Notas de corazón": "Lavanda, Maninka",
+    "Notas de fondo": "Cuero, Almizcle, Madera de ambroxan",
+    "Familia olfativa": "Oriental especiado",
+    "Ocasión de uso": "Citas y salidas informales",
+    "Signos zodiacales asociados": "Escorpio, Leo, Sagitario",
+    "Personalidad o carácter del usuario": "Seductorx / empoderadx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "066",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Frescura Armoniosa",
+    "Inspirado en": "L'eau d'Issey Issey Miyake",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "frescura_armoniosa",
+    "Descripción olfativa": "Un Acuático Amaderado icónico. La nota de Yuzu (cítrico japonés) es el centro de esta composición minimalista y refrescante. Se equilibra con un corazón especiado de Nuez Moscada y un fondo puro de Sándalo y Ámbar. La esencia de la transparencia masculina.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Yuzu, Mandarina, Bergamota",
+    "Notas de corazón": "Rosa, Jazmín",
+    "Notas de fondo": "Sándalo, Cedro, Almizcle",
+    "Familia olfativa": "Acuática cítrica",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Piscis, Tauro, Libra",
+    "Personalidad o carácter del usuario": "Activo / aventurerx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "067",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Brisa de Mar",
+    "Inspirado en": "L'Eau d'Issey Pour Homme Issey Miyake",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "brisa_de_mar",
+    "Descripción olfativa": "Un Cítrico Acuático Especiado. La explosión de Yuzu y Bergamota se intensifica con un corazón de Canela y Nuez Moscada. El fondo de Sándalo y Vetiver lo hace vibrante, fresco y moderno.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Yuzu, Bergamota, Mandarina",
+    "Notas de corazón": "Menta, Rosa, Canela",
+    "Notas de fondo": "Sándalo, Cedro, Almizcle",
+    "Familia olfativa": "Cítrica acuática",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Sagitario, Leo, Aries",
+    "Personalidad o carácter del usuario": "Frescx / natural",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "068",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Noche Infinita",
+    "Inspirado en": "Nuit d’Issey Issey Miyake",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "noche_infinita",
+    "Descripción olfativa": "Un Amaderado Especiado Oscuro. La frescura de la Toronja y la Bergamota se oscurece con la intensidad del Cuero y las Especias. El fondo de Ébano y Haba Tonka lo hace misterioso, denso y nocturno.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Bergamota, Mandarina",
+    "Notas de corazón": "Pimienta, Canela",
+    "Notas de fondo": "Madera de sándalo, Ámbar",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Sagitario, Escorpio, Virgo",
+    "Personalidad o carácter del usuario": "Misteriosx / seductorx",
+    "Estilo de vida del usuario": "Audaz / modernx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "069",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "El Hombre Perfecto",
+    "Inspirado en": "Le Beau Jean Paul Gaultier",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "el_hombre_perfecto",
+    "Descripción olfativa": "Un Amaderado Aromático Tropical. La frescura del Bergamota se fusiona con la dulzura tropical del Coco y el Haba Tonka. Una composición seductora, cálida y que evoca el paraíso.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Bergamota, Coco, Limón",
+    "Notas de corazón": "Geranio, Salvia, Lavanda",
+    "Notas de fondo": "Tonka, Almizcle, Sándalo",
+    "Familia olfativa": "Amaderada aromática",
+    "Ocasión de uso": "Eventos formales / ceremonias",
+    "Signos zodiacales asociados": "Leo, Géminis, Libra",
+    "Personalidad o carácter del usuario": "Seductorx / empoderadx",
+    "Estilo de vida del usuario": "Empoderadx / segurx",
+    "Edad del usuario": "25 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "070",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "El Hombre Clásico",
+    "Inspirado en": "Le Male Jean Paul Gaultier",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "el_hombre_clasico",
+    "Descripción olfativa": "Un Oriental Fougère icónico. La combinación audaz de Lavanda fresca y Menta con la dulzura cálida de la Vainilla y el Haba Tonka. Un contraste de fuerza y ternura, con una proyección distintiva y sensual.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Menta, Lavanda, Bergamota",
+    "Notas de corazón": "Canela, Azúcar",
+    "Notas de fondo": "Vainilla, Sándalo, Almizcle",
+    "Familia olfativa": "Oriental especiada",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Aries, Leo, Cáncer",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Audaz / modernx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "071",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Frescura Intensa",
+    "Inspirado en": "Essential Lacoste Fragrances",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "frescura_intensa",
+    "Descripción olfativa": "Un Cítrico Amaderado Verde. La frescura del Hoja de Tomate y la Tangerina se fusiona con el corazón especiado de Pimienta Negra. El fondo de Sándalo y Pachulí lo hace dinámico, fresco y de una sencillez elegante.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Limón, Mandarina, Bergamota",
+    "Notas de corazón": "Tomate, Pimienta, Jazmín",
+    "Notas de fondo": "Madera de cedro, Almizcle",
+    "Familia olfativa": "Cítrica amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Aries, Leo, Géminis",
+    "Personalidad o carácter del usuario": "Activo / aventurerx",
+    "Estilo de vida del usuario": "Audaz / modernx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "072",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Vibrante y Refrescante",
+    "Inspirado en": "Red Lacoste Fragrances",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "vibrante_y_refrescante",
+    "Descripción olfativa": "Un Amaderado Especiado Vibrante. La frescura del Manzana Verde y el Maclura se fusiona con un corazón especiado de Canela y Clavos de Olor. El fondo de Vetiver y Pachulí lo hace activo, cálido y energético.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Toronja, Mandarina, Limón",
+    "Notas de corazón": "Canela, Almendra, Cardamomo",
+    "Notas de fondo": "Ámbar, Cedro, Sándalo",
+    "Familia olfativa": "Cítrica especiada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Aries, Leo, Sagitario",
+    "Personalidad o carácter del usuario": "Activo / aventurerx",
+    "Estilo de vida del usuario": "Optimistx / alegre",
+    "Edad del usuario": "20 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "073",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "El Legendario",
+    "Inspirado en": "Legend Montblanc",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "el_legendario",
+    "Descripción olfativa": "Un Aromático Fougère sofisticado. La frescura de la Lavanda y la Piña se mezcla con un corazón de Pimienta y Rosa. El fondo de Musgo de Roble y Sándalo lo hace audaz, limpio y con una elegancia moderna.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Lavanda, Bergamota, Piña",
+    "Notas de corazón": "Geranio, Manzana, Flor de loto",
+    "Notas de fondo": "Sándalo, Musgo de roble, Tonka",
+    "Familia olfativa": "Amaderada aromática",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Aries, Leo, Escorpio",
+    "Personalidad o carácter del usuario": "Activo / aventurerx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "074",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Riqueza Irresistible",
+    "Inspirado en": "1 Million Lucky Rabanne",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "riqueza_irresistible",
+    "Descripción olfativa": "Un Amaderado Gourmand de fortuna. El acorde de Ciruela y Avellana se fusiona con la dulzura de la Miel y el Cachemira. El fondo de Madera de Cedro y Pachulí lo hace dulce, potente y excepcionalmente carismático.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Ciruela, Toronja, Avellana",
+    "Notas de corazón": "Miel, Jazmín, Cedro",
+    "Notas de fondo": "Pachulí, Sándalo, Ámbar",
+    "Familia olfativa": "Amaderada dulce",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Leo, Aries, Sagitario",
+    "Personalidad o carácter del usuario": "Audaz / aventurerx",
+    "Estilo de vida del usuario": "Optimistx / alegre",
+    "Edad del usuario": "25 a 40 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "075",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "El Invencible",
+    "Inspirado en": "Invictus Rabanne",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "el_invencible",
+    "Descripción olfativa": "Un Acuático Amaderado y vibrante. La intensidad salina del Acorde Marino se fusiona con la dulzura del Pomelo y la vitalidad de las Hojas de Laurel. Un fondo de Ámbar Gris y Madera de Gaiac confiere poder y un carácter deportivo y triunfal.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Pomelo, Mandarina, Laurél",
+    "Notas de corazón": "Jazmín, Laurel",
+    "Notas de fondo": "Ámbar gris, Madera, Musgo",
+    "Familia olfativa": "Amaderada cítrica",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Aries, Leo, Sagitario",
+    "Personalidad o carácter del usuario": "Activo / aventurerx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "20 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "076",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "El Gladiador Acuático",
+    "Inspirado en": "Invictus Aqua Rabanne",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "el_gladiador_acuatico",
+    "Descripción olfativa": "Un Acuático Amaderado fresco. La frescura del Yuzu y el Pomelo se fusiona con el Acorde de Sal Marina. El fondo de Ámbar Gris y Hoja de Violeta lo hace limpio, salado y acuático.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Pomelo, Mandarina, Yuzu",
+    "Notas de corazón": "Lavanda, Jazmín, Pachulí",
+    "Notas de fondo": "Ámbar, Cedro, Almizcle",
+    "Familia olfativa": "Acuática amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Aries, Leo, Sagitario",
+    "Personalidad o carácter del usuario": "Audaz / aventurerx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "25 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "077",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Frescura Activa",
+    "Inspirado en": "Polo Sport Ralph Lauren",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "frescura_activa",
+    "Descripción olfativa": "Un Aromático Verde Acuático. La chispa de la Menta y el Limón se fusiona con el corazón verde del Jengibre y el Acorde Acuático. El fondo de Sándalo y Almizcle lo hace deportivo, limpio y refrescante.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Limón, Mandarina, Menta",
+    "Notas de corazón": "Ciprés, Jazmín, Clavo de olor",
+    "Notas de fondo": "Ámbar, Almizcle, Sándalo",
+    "Familia olfativa": "Cítrica acuática",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Aries, Sagitario, Leo",
+    "Personalidad o carácter del usuario": "Activo / aventurerx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "20 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "078",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Aventura Natural",
+    "Inspirado en": "Swiss Army Victorinox Swiss Army",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "aventura_natural",
+    "Descripción olfativa": "Un Aromático Fougère Herbal. La frescura del Yuzu y la Menta se fusiona con un corazón herbal de Romero y Lavanda. El fondo de Ciprés y Ámbar lo hace limpio, fresco y evocador de la naturaleza alpina.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Bergamota, Lima, Lavanda",
+    "Notas de corazón": "Menta, Cilantro, Romero",
+    "Notas de fondo": "Sándalo, Cedro, Almizcle",
+    "Familia olfativa": "Aromática verde",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Aries, Sagitario, Leo",
+    "Personalidad o carácter del usuario": "Activo / aventurerx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "079",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Misterio Nocturno",
+    "Inspirado en": "Noir Tom Ford",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "misterio_nocturno",
+    "Descripción olfativa": "Un Oriental Especiado Atalcado. La frescura del Bergamota y la Violeta se mezcla con un corazón especiado de Pimienta Negra y Nuez Moscada. El fondo de Vainilla, Ámbar y Opone lo hace sofisticado, oscuro y profundamente sensual.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Bergamota, Naranja amarga",
+    "Notas de corazón": "Ámbar, Cardamomo",
+    "Notas de fondo": "Vainilla, Sándalo, Almizcle",
+    "Familia olfativa": "Oriental especiada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Escorpio, Tauro, Virgo",
+    "Personalidad o carácter del usuario": "Misteriosx / seductorx",
+    "Estilo de vida del usuario": "Sensual / encantadorx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "080",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Aventura Juguetona",
+    "Inspirado en": "Toy Boy Moschino",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "aventura_juguetona",
+    "Descripción olfativa": "Un Floral Especiado Amaderado inusual. La frescura de la Pera y la Nuez Moscada se fusiona con el corazón floral de la Rosa y el Clavo. El fondo de Sándalo y Ámbar lo hace audaz, moderno y con un toque juguetón.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Pera, Bergamota, Pimienta",
+    "Notas de corazón": "Rosa, Magnolia, Clavo de olor",
+    "Notas de fondo": "Ámbar, Sándalo, Almizcle",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Aries, Géminis, Leo",
+    "Personalidad o carácter del usuario": "Divertidx / optimista",
+    "Estilo de vida del usuario": "Audaz / modernx",
+    "Edad del usuario": "20 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas o Nocturnas"
+  },
+  {
+    "Código único del perfume": "081",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Explosión de Especias",
+    "Inspirado en": "Spicebomb Viktor&Rolf",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "explosion_de_especias",
+    "Descripción olfativa": "Un Oriental Especiado explosivo. Un choque de calor y frío: la explosión helada de Bergamota contra el corazón ardiente de Pimienta, Canela y Pimentón. La base de Tabaco y Cuero lo ancla con oscuridad, fuerza y audacia.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Bergamota, Pomelo, Pimienta",
+    "Notas de corazón": "Canela, Azafrán, Pimiento",
+    "Notas de fondo": "Tabaco, Cuero, Vetiver",
+    "Familia olfativa": "Oriental especiada",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Escorpio, Aries, Capricornio",
+    "Personalidad o carácter del usuario": "Audaz / aventurerx",
+    "Estilo de vida del usuario": "Audaz / modernx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "082",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Noche Seductora",
+    "Inspirado en": "La Nuit de l'Homme Yves Saint Laurent",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "noche_seductora",
+    "Descripción olfativa": "Un Especiado Amaderado sensual. El acorde dominante de Cardamomo y Bergamota crea una salida envolvente. El corazón de Lavanda y el fondo de Vetiver y Cedro lo hacen una fragancia perfecta para la intimidad y la noche.",
+    "Género / Público": "Hombre",
+    "Notas de salida": "Cardamomo, Bergamota",
+    "Notas de corazón": "Lavanda, Cedro",
+    "Notas de fondo": "Cumaru, Vetiver",
+    "Familia olfativa": "Oriental especiada",
+    "Ocasión de uso": "Citas y salidas informales",
+    "Signos zodiacales asociados": "Escorpio, Leo, Capricornio",
+    "Personalidad o carácter del usuario": "Seductorx / empoderadx",
+    "Estilo de vida del usuario": "Empoderadx / segurx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "083",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Fuerza y Sensualidad",
+    "Inspirado en": "Si Giorgio Armani",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "fuerza_y_sensualidad",
+    "Descripción olfativa": "Un Chipre Frutal moderno y elegante. La esencia se centra en la opulencia de la Grosella Negra (Cassis), que se equilibra con la ligereza de la Fresia. El fondo es cálido y persistente, dominado por el Pachulí y la Vainilla Orcán.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Grosella negra, Mandarina",
+    "Notas de corazón": "Rosa de mayo, Freesia",
+    "Notas de fondo": "Almizcle, Pachulí, Madera de roble",
+    "Familia olfativa": "Floral amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Leo, Libra, Sagitario",
+    "Personalidad o carácter del usuario": "Seductorx / empoderadx",
+    "Estilo de vida del usuario": "Empoderadx / segurx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "084",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Esencia de Cristal",
+    "Inspirado en": "Omnia Crystalline Bvlgari",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "esencia_de_cristal",
+    "Descripción olfativa": "Un Floral Amaderado Almizclado transparente. La frescura acuática del Bambú y la Pera Nashi se une al corazón puro del Loto. La base de Balsa Wood y Musgo lo hace minimalista, limpio y relajante.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Pomelo, Pera, Mandarina",
+    "Notas de corazón": "Loto, Té verde, Nuez de Brasil",
+    "Notas de fondo": "Madera de caoba, Almizcle",
+    "Familia olfativa": "Floral acuática",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Tauro, Virgo, Piscis",
+    "Personalidad o carácter del usuario": "Frescx / natural",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "20 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "085",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Oro Rosado",
+    "Inspirado en": "Rose Goldea Bvlgari",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "oro_rosado",
+    "Descripción olfativa": "Un Floral Amaderado Almizclado. El corazón de Rosa Damascena y Jazmín se fusiona con la dulzura de la Granada. El fondo de Almizcle Blanco, Sándalo y Incienso lo hace lujoso, suave y con una sensualidad limpia.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Granada, Frambuesa, Bergamota",
+    "Notas de corazón": "Rosa, Jazmín, Geranio",
+    "Notas de fondo": "Almizcle, Sándalo, Ámbar",
+    "Familia olfativa": "Floral afrutada",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Libra, Tauro, Leo",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sensual / encantadorx",
+    "Edad del usuario": "25 a 50 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "086",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Fiesta en el Aire",
+    "Inspirado en": "Can Can Paris Hilton",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "fiesta_en_el_aire",
+    "Descripción olfativa": "Un Floral Frutal Gourmand juguetón. La frescura de la Nectarina y la Grosella Negra se fusiona con un corazón de Orquídea Salvaje y Flor de Azahar. El fondo de Ámbar y Madera lo hace dulce, vibrante y juvenil.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Mandarina, Frambuesa, Neroli",
+    "Notas de corazón": "Jazmín, Azúcar, Gardenia",
+    "Notas de fondo": "Almizcle, Ámbar, Vainilla",
+    "Familia olfativa": "Floral frutal dulce",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Aries, Leo, Tauro",
+    "Personalidad o carácter del usuario": "Seductorx / empoderadx",
+    "Estilo de vida del usuario": "Optimistx / alegre",
+    "Edad del usuario": "18 a 35 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "087",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Elegancia Urbana",
+    "Inspirado en": "212 Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "elegancia_urbana",
+    "Descripción olfativa": "Un Floral Transparente de elegancia urbana. La salida brillante de Flor de Azahar y Bergamota se fusiona con el corazón floral de la Gardenia y la Peonía. El fondo de Sándalo y Almizcle Blanco lo hace limpio, sofisticado y dinámico.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Flor de pomelo, Mandarina",
+    "Notas de corazón": "Jazmín, Gardenia",
+    "Notas de fondo": "Almizcle, Sándalo",
+    "Familia olfativa": "Floral cítrica",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Virgo, Libra, Tauro",
+    "Personalidad o carácter del usuario": "Profesional / líder",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "088",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Glamour Nocturno",
+    "Inspirado en": "212 Sexy Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "glamour_nocturno",
+    "Descripción olfativa": "Un Oriental Floral sensual. La frescura de la Mandarina y la Pimienta Rosa se fusiona con un corazón de Gardenia y Peonía. El fondo de Vainilla, Sándalo y Almizcle lo hace cálido, dulce y seductor para la noche.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Mandarina, Flor de peonía",
+    "Notas de corazón": "Gardenia, Violeta",
+    "Notas de fondo": "Vainilla, Sándalo, Almizcle",
+    "Familia olfativa": "Oriental floral",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Leo, Aries, Escorpio",
+    "Personalidad o carácter del usuario": "Misteriosx / seductorx",
+    "Estilo de vida del usuario": "Empoderadx / segurx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "089",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Fiesta Urbana",
+    "Inspirado en": "212 VIP Rosé Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "fiesta_urbana",
+    "Descripción olfativa": "Un Floral Frutal efervescente. La chispa del Champagne Rosé y la Flor de Melocotón se fusiona con un corazón floral de Rosa. El fondo de Madera y Ámbar lo hace vibrante, moderno y de una energía festiva.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Maracuyá, Vainilla, Frambuesa",
+    "Notas de corazón": "Flor de azahar, Gardenia",
+    "Notas de fondo": "Almizcle, Sándalo, Vainilla",
+    "Familia olfativa": "Floral afrutada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Aries, Leo, Géminis",
+    "Personalidad o carácter del usuario": "Joven / optimista",
+    "Estilo de vida del usuario": "Empoderadx / segurx",
+    "Edad del usuario": "20 a 35 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "090",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Chic y Elegante",
+    "Inspirado en": "CH (2015) Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "chic_y_elegante",
+    "Descripción olfativa": "Un Floral Oriental Especiado. La frescura de la Bergamota se mezcla con un corazón vibrante de Azafrán y Rosa Búlgara. El fondo de Praliné, Sándalo y Cuero lo hace lujoso, cálido y sofisticado.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Azafrán, Bergamota, Mandarina",
+    "Notas de corazón": "Rosa, Flor de azahar, Jazmín",
+    "Notas de fondo": "Sándalo, Vetiver, Almizcle",
+    "Familia olfativa": "Floral especiada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Capricornio, Tauro, Libra",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "091",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Sensualidad Sofisticada",
+    "Inspirado en": "CH Privée Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "sensualidad_sofisticada",
+    "Descripción olfativa": "Un Oriental Cuero intenso. La frescura de la Mandarina se fusiona con un corazón opulento de Rosa y Osmanthus. La base de Cuero Suave, Vainilla y Pachulí lo hace sensual, denso y profundamente sofisticado.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Mandarina, Rosa, Nuez moscada",
+    "Notas de corazón": "Azafrán, Flor de azahar",
+    "Notas de fondo": "Sándalo, Cuero, Almizcle",
+    "Familia olfativa": "Floral amaderada",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Aries, Escorpio, Leo",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sensual / encantadorx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "092",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Refinamiento Natural",
+    "Inspirado en": "Chic Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "refinamiento_natural",
+    "Descripción olfativa": "Un Floral Amaderado Almizclado. La frescura de la Mandarina y la Tuberosa se fusiona con un corazón de Flor de Loto y Fresia. El fondo de Sándalo y Vainilla lo hace limpio, elegante y de una sofisticación natural.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Bergamota, Limón, Mandarina",
+    "Notas de corazón": "Flor de azahar, Gardenia, Rosa",
+    "Notas de fondo": "Almizcle, Sándalo, Vetiver",
+    "Familia olfativa": "Floral amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Leo, Libra, Capricornio",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "093",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Elegancia Radiante",
+    "Inspirado en": "CH Eau De Parfum Sublime Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "elegancia_radiante",
+    "Descripción olfativa": "Un Chipre Floral efervescente. La frescura de la Bergamota y el Maracuyá se fusiona con un corazón opulento de Rosa y Orquídea. El fondo de Pachulí y Ámbar lo hace vibrante, fresco y con una elegancia moderna.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Pomelo, Mandarina, Manzana",
+    "Notas de corazón": "Jazmín, Rosa, Orquídea",
+    "Notas de fondo": "Sándalo, Ámbar, Vainilla",
+    "Familia olfativa": "Cítrica floral",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Virgo, Tauro, Cáncer",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "094",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Amor Eterno",
+    "Inspirado en": "Eternity Calvin Klein",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "amor_eterno",
+    "Descripción olfativa": "Un Floral Blanco Atemporal. La frescura de las Notas Verdes y la Freesia se fusiona con un corazón de Lirio, Jazmín y Clavel. El fondo de Sándalo y Heliotropo lo hace romántico, limpio y de una sofisticación duradera.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Mandarina, Salvia, Lavanda",
+    "Notas de corazón": "Jazmín, Rosa, Lirio de los valles",
+    "Notas de fondo": "Sándalo, Almizcle, Ámbar",
+    "Familia olfativa": "Floral fresca",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Tauro, Cáncer, Libra",
+    "Personalidad o carácter del usuario": "Románticx / delicadx",
+    "Estilo de vida del usuario": "Audaz / modernx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "095",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Diversión Frutal",
+    "Inspirado en": "Moschino Funny! Moschino",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "diversion_frutal",
+    "Descripción olfativa": "Un Floral Frutal Cítrico. La chispa de la Naranja Amarga y la Grosella Roja se fusiona con un corazón de Té Verde y Peonía. El fondo de Madera de Cedro y Ámbar lo hace alegre, vibrante y juguetón.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Mandarina, Frambuesa, Pera",
+    "Notas de corazón": "Peonía, Violeta, Flor de loto",
+    "Notas de fondo": "Almizcle, Cedro, Sándalo",
+    "Familia olfativa": "Floral frutal",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Géminis, Leo, Sagitario",
+    "Personalidad o carácter del usuario": "Divertidx / optimista",
+    "Estilo de vida del usuario": "Creativx / expresivx",
+    "Edad del usuario": "20 a 35 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "096",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "El Prohibido",
+    "Inspirado en": "L'Interdit Eau de Parfum Givenchy",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "el_prohibido",
+    "Descripción olfativa": "Un Floral Amaderado misterioso. La combinación de Flor de Azahar y Nardo crea una opulencia blanca. El contraste llega con el Vetiver terroso y el Pachulí, dándole una oscuridad elegante y adictiva.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Bergamota, Pera",
+    "Notas de corazón": "Tuberosa, Jazmín, Naranja amarga",
+    "Notas de fondo": "Sándalo, Almizcle, Vetiver",
+    "Familia olfativa": "Floral oriental",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Escorpio, Virgo, Capricornio",
+    "Personalidad o carácter del usuario": "Misteriosx / seductorx",
+    "Estilo de vida del usuario": "Sensual / encantadorx",
+    "Edad del usuario": "25 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "097",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Jardín Radiante",
+    "Inspirado en": "Gucci Bloom Gucci",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "jardin_radiante",
+    "Descripción olfativa": "Un Floral Blanco puro e intenso. Un bouquet hiperrealista donde la Tuberosa y el Jazmín se unen al inusual y cremoso Quisqualis Indica (Rangoón Creeper). Una fragancia lineal y potente, que evoca un jardín en plena floración.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Azúcar, Naranja, Bergamota",
+    "Notas de corazón": "Jazmín, Tuberosa, Lirio",
+    "Notas de fondo": "Almizcle, Sándalo",
+    "Familia olfativa": "Floral",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Leo, Aries, Tauro",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Audaz / modernx",
+    "Edad del usuario": "25 a 50 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "098",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Encanto Oriental",
+    "Inspirado en": "Shalimar Eau de Parfum Guerlain",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "encanto_oriental",
+    "Descripción olfativa": "La obra maestra Oriental. Una salida de intensa Bergamota da paso a un corazón balsámico de Iris y Jazmín. Su fondo legendario se construye sobre un opulento acorde de Vainilla, Incienso y Opopónaco, creando una calidez majestuosa y atemporal.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Bergamota, Limón, Cedro",
+    "Notas de corazón": "Jazmín, Iris, Rosa",
+    "Notas de fondo": "Vainilla, Almizcle, Incienso",
+    "Familia olfativa": "Oriental amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Escorpio, Capricornio, Leo",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 60 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "099",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Joven Elegancia",
+    "Inspirado en": "Twilly d’Hermès Hermès",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "joven_elegancia",
+    "Descripción olfativa": "Un Floral Especiado audaz. La frescura vibrante del Jengibre se fusiona con el corazón opulento del Nardo y la Flor de Azahar. El fondo de Sándalo lo hace moderno, fresco y con una juventud enérgica.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Jengibre, Naranja amarga",
+    "Notas de corazón": "Tuberosa, Rosa",
+    "Notas de fondo": "Sándalo, Vainilla",
+    "Familia olfativa": "Floral especiada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Virgo, Libra, Tauro",
+    "Personalidad o carácter del usuario": "Frescx / natural",
+    "Estilo de vida del usuario": "Audaz / modernx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "100",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Encanto Clásico",
+    "Inspirado en": "Classique Jean Paul Gaultier",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "encanto_clasico",
+    "Descripción olfativa": "Un Floral Oriental icónico. Una salida atrevida de Anís Estrellado y Flor de Azahar da paso a un corazón especiado de Jengibre y Ylang-Ylang. La base se asienta en la calidez cremosa de la Vainilla, el Ámbar y la Canela.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Naranja, Mandarina, Anís",
+    "Notas de corazón": "Flor de azahar, Jengibre, Rosa",
+    "Notas de fondo": "Vainilla, Almizcle, Sándalo",
+    "Familia olfativa": "Oriental floral",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Escorpio, Leo, Aries",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sensual / encantadorx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "101",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Escándalo Atractivo",
+    "Inspirado en": "Scandal Jean Paul Gaultier",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "escandalo_atractivo",
+    "Descripción olfativa": "Un Chipre Floral Gourmand atrevido. La salida cítrica y de Naranja Sanguina da paso a un corazón opulento de Miel y Gardenia. El fondo de Pachulí y Cera de Abejas lo hace intensamente dulce, provocador y elegante.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Mandarina, Gardenia, Naranja",
+    "Notas de corazón": "Miel, Jazmín, Flor de naranjo",
+    "Notas de fondo": "Sándalo, Pachulí",
+    "Familia olfativa": "Floral gourmand",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Leo, Aries, Géminis",
+    "Personalidad o carácter del usuario": "Audaz / aventurerx",
+    "Estilo de vida del usuario": "Sensual / encantadorx",
+    "Edad del usuario": "20 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "102",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Sonríe a la Vida",
+    "Inspirado en": "La Vie Est Belle Lancôme",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "sonrie_a_la_vida",
+    "Descripción olfativa": "Un Gourmand Floral y radiante. Un manifiesto de felicidad anclado en un potente acorde de Iris de Florencia, iluminado por la chispa frutal de la Grosella Negra y envuelto en la dulzura adictiva del Praliné y la Vainilla. Un sillage potente y femenino.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Pera, Cassis, Naranja",
+    "Notas de corazón": "Iris, Jazmín, Flor de azahar",
+    "Notas de fondo": "Pachulí, Praliné, Vainilla",
+    "Familia olfativa": "Floral afrutada",
+    "Ocasión de uso": "Citas y salidas informales",
+    "Signos zodiacales asociados": "Cáncer, Tauro, Virgo",
+    "Personalidad o carácter del usuario": "Joven / optimista",
+    "Estilo de vida del usuario": "Optimistx / alegre",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Templado / Variable",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "103",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Riqueza Floral",
+    "Inspirado en": "Trésor Lancôme",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "riqueza_floral",
+    "Descripción olfativa": "Un Floral Oriental afrutado. La nota de Durazno aterciopelado y la Rosa se mezclan con la Lila y la Piña. La base de Ámbar y Vainilla lo hace cálido, suave y atemporal.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Durazno, Rosa, Almendra",
+    "Notas de corazón": "Iris, Jazmín, Lirio del valle",
+    "Notas de fondo": "Sándalo, Almizcle, Vainilla",
+    "Familia olfativa": "Floral frutal",
+    "Ocasión de uso": "Citas y salidas informales",
+    "Signos zodiacales asociados": "Tauro, Libra, Piscis",
+    "Personalidad o carácter del usuario": "Románticx / delicadx",
+    "Estilo de vida del usuario": "Sensual / encantadorx",
+    "Edad del usuario": "30 a 55 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "104",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Frescura Silvestre",
+    "Inspirado en": "Daisy Marc Jacobs",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "frescura_silvestre",
+    "Descripción olfativa": "Un Floral Amaderado Fresco. La dulzura de la Fresa y la frescura de la Hoja de Violeta se fusiona con un corazón de Gardenia y Jazmín. El fondo de Maderas Claras y Vainilla lo hace ligero, floral y alegre.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Fresa, Mandarina, Violeta",
+    "Notas de corazón": "Jazmín, Gardenia, Lirio",
+    "Notas de fondo": "Almizcle, Sándalo",
+    "Familia olfativa": "Floral afrutada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Tauro, Libra, Géminis",
+    "Personalidad o carácter del usuario": "Joven / optimista",
+    "Estilo de vida del usuario": "Optimistx / alegre",
+    "Edad del usuario": "18 a 35 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "105",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Extravagancia Mística",
+    "Inspirado en": "Alien Mugler",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "extravagancia_mistica",
+    "Descripción olfativa": "Un Ambarado Amaderado Floral, misterioso y cautivador. El Jazmín Sambac solar es el protagonista, envuelto en un acorde profundo y balsámico de Ámbar Blanco y la calidez envolvente de la Madera de Cachemira. De proyección intensa y carismática.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Jazmín, Mandarina",
+    "Notas de corazón": "Jazmín sambac, Ambar",
+    "Notas de fondo": "Madera de cachemira, Almizcle",
+    "Familia olfativa": "Floral amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Aries, Leo, Sagitario",
+    "Personalidad o carácter del usuario": "Activo / aventurerx",
+    "Estilo de vida del usuario": "Audaz / modernx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "106",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Cielo Estelar",
+    "Inspirado en": "Angel Mugler",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "cielo_estelar",
+    "Descripción olfativa": "El pionero de los Gourmand. Un Oriental Vainilla complejo y nostálgico. La combinación explosiva de Pachulí, Vainilla, Caramelo y Chocolate con un toque de Frutos Rojos. Una fragancia statement de estela memorable.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Mandarina, Coco, Algodón",
+    "Notas de corazón": "Jazmín, Peonía, Melocotón",
+    "Notas de fondo": "Pachulí, Vainilla, Almizcle",
+    "Familia olfativa": "Oriental dulce",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Tauro, Capricornio, Leo",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Audaz / modernx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "107",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Misterio Seductor",
+    "Inspirado en": "Narciso Rodriguez for Her Eau de Parfum Narciso Rodriguez",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "misterio_seductor",
+    "Descripción olfativa": "Un Floral Amaderado Almizclado. La estructura se centra en el Corazón de Almizcle, limpio y adictivo, que se envuelve en una faceta floral de Rosa y Durazno. El fondo de Ámbar y Pachulí confiere una elegancia sutil y sensual.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Almizcle, Flor de naranja",
+    "Notas de corazón": "Rosa, Iris, Heliotropo",
+    "Notas de fondo": "Almizcle, Ámbar, Vetiver",
+    "Familia olfativa": "Floral amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Escorpio, Leo, Virgo",
+    "Personalidad o carácter del usuario": "Misteriosx / seductorx",
+    "Estilo de vida del usuario": "Empoderadx / segurx",
+    "Edad del usuario": "30 a 55 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "108",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Caramelo Seductor",
+    "Inspirado en": "Prada Candy Prada",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "caramelo_seductor",
+    "Descripción olfativa": "Un Oriental Especiado Gourmand adictivo. Una sobredosis de Benjuí y Caramelo crea un dulzor intenso y ligeramente resinoso. El corazón de Almizcle puro ofrece una base limpia y moderna.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Caramelo, Almendra, Musk",
+    "Notas de corazón": "Rosa, Iris, Benjuí",
+    "Notas de fondo": "Vainilla, Sándalo, Almizcle",
+    "Familia olfativa": "Gourmand dulce",
+    "Ocasión de uso": "Citas y salidas informales",
+    "Signos zodiacales asociados": "Tauro, Libra, Cáncer",
+    "Personalidad o carácter del usuario": "Urbano / innovadorx",
+    "Estilo de vida del usuario": "Creativx / expresivx",
+    "Edad del usuario": "20 a 35 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "109",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Feminidad Refinada",
+    "Inspirado en": "Prada La Femme Prada",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "feminidad_refinada",
+    "Descripción olfativa": "Un Floral Oriental Especiado. La nota exótica de Frangipani y el Nardo se fusiona con el toque especiado del Ylang-Ylang y la Cera de Abejas. El fondo de Vetiver y Vainilla lo hace cálido, floral y muy sofisticado.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Bergamota, Limón",
+    "Notas de corazón": "Frangipani, Ylang-ylang, Iris",
+    "Notas de fondo": "Vainilla, Sándalo, Cera de abejas",
+    "Familia olfativa": "Floral amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Libra, Géminis, Virgo",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Templado / Variable",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "110",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Energía Tropical",
+    "Inspirado en": "Rockin' Rio Escada",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "energia_tropical",
+    "Descripción olfativa": "Un Floral Frutal Tropical. La dulzura de la Piña y la Mandarina se fusiona con el corazón de Flor de Azahar y Coco. El fondo de Sándalo y Almizcle lo hace fresco, tropical y muy vibrante.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Naranja, Mandarina, Piña",
+    "Notas de corazón": "Frambuesa, Rosa, Jazmín",
+    "Notas de fondo": "Almizcle, Sándalo, Vainilla",
+    "Familia olfativa": "Frutal floral",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Géminis, Leo, Sagitario",
+    "Personalidad o carácter del usuario": "Activo / aventurerx",
+    "Estilo de vida del usuario": "Optimistx / alegre",
+    "Edad del usuario": "20 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "111",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Misterio Intenso",
+    "Inspirado en": "Black Orchid Tom Ford",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "misterio_intenso",
+    "Descripción olfativa": "Un Oriental Chipre Floral. Una mezcla opulenta y oscura de Trufa Negra, Ylang-Ylang y la inusual Orquídea Negra. El fondo terroso de Pachulí y la calidez del Incienso lo hacen una fragancia densa y suntuosa.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Trufa, Mandarina, Bergamota",
+    "Notas de corazón": "Orquídea, Jazmín, Canela",
+    "Notas de fondo": "Vainilla, Pachulí, Chocolate",
+    "Familia olfativa": "Oriental floral",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Escorpio, Capricornio, Tauro",
+    "Personalidad o carácter del usuario": "Seductorx / empoderadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 55 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "112",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Explosión Floral",
+    "Inspirado en": "Flowerbomb Viktor&Rolf",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "explosion_floral",
+    "Descripción olfativa": "Un Oriental Gourmand Floral explosivo. El corazón floral exuberante de Jazmín, Freesia y Rosa contrasta con el acorde adictivo del Pachulí y el Caramelo. Un verdadero estallido de dulzura sofisticada y envolvente.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Bergamota, Té, Mandarina",
+    "Notas de corazón": "Jazmín, Rosa, Orquídea",
+    "Notas de fondo": "Patchouli, Almizcle, Sándalo",
+    "Familia olfativa": "Floral oriental",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Libra, Tauro, Leo",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas o Nocturnas"
+  },
+  {
+    "Código único del perfume": "113",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Adicción Nocturna",
+    "Inspirado en": "Black Opium Yves Saint Laurent",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "adiccion_nocturna",
+    "Descripción olfativa": "Un Oriental Vainilla intensamente adictivo. La energía de las notas de Café Negro y la Pimienta Rosa choca con la sensualidad de la Vainilla y la Flor de Azahar. Una fragancia de noche, rockera y profundamente femenina.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Café, Pera, Rosa",
+    "Notas de corazón": "Jazmín, Almendra, Naranja",
+    "Notas de fondo": "Vainilla, Cedro, Pachulí",
+    "Familia olfativa": "Oriental gourmand",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Escorpio, Aries, Leo",
+    "Personalidad o carácter del usuario": "Seductorx / empoderadx",
+    "Estilo de vida del usuario": "Empoderadx / segurx",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "114",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Romántica Nocturna",
+    "Inspirado en": "Mon Paris Yves Saint Laurent",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "romantica_nocturna",
+    "Descripción olfativa": "Un Chipre Frutal dulce y eléctrico. La dulzura de la Fresa y la Frambuesa choca con la flor oscura de Datura. El Pachulí y el Almizcle Blanco lo hacen moderno, vibrante y juvenil.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Fresa, Pera, Naranja",
+    "Notas de corazón": "Peonía, Jazmín, Datura",
+    "Notas de fondo": "Pachulí, Almizcle, Ambroxan",
+    "Familia olfativa": "Floral afrutada",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Tauro, Libra, Escorpio",
+    "Personalidad o carácter del usuario": "Románticx / delicadx",
+    "Estilo de vida del usuario": "Románticx / soñadorx",
+    "Edad del usuario": "25 a 40 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "115",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "El Encanto Dorado",
+    "Inspirado en": "The One Dolce&Gabbana",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "el_encanto_dorado",
+    "Descripción olfativa": "Un Floral Oriental de sensualidad. La dulzura del Durazno y la Lichi se fusiona con un corazón opulento de Lirio y Jazmín. El fondo de Vainilla, Ámbar y Almizcle lo hace cálido, sofisticado y envolvente.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Bergamota, Durazno, Mandarina",
+    "Notas de corazón": "Jazmín, Lirio, Ciruela",
+    "Notas de fondo": "Vainilla, Ámbar, Almizcle",
+    "Familia olfativa": "Floral amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Tauro, Libra, Virgo",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "116",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Brisa Mediterránea",
+    "Inspirado en": "Light Blue Dolce&Gabbana",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "brisa_mediterranea",
+    "Descripción olfativa": "La personificación del espíritu mediterráneo. Una fragancia Floral Frutal Cítrica definida por el contraste de la Sicilia Limón y la manzana verde. El corazón de Jazmín y Rosa Blanca se posa sobre una base amaderada de Cedro y Ámbar, ofreciendo una sensación de pureza, frescura y vitalidad veraniega.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Limón, Manzana, Cedro",
+    "Notas de corazón": "Jazmín, Rosa, Bambú",
+    "Notas de fondo": "Cedro, Ámbar, Musk",
+    "Familia olfativa": "Floral afrutada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Cáncer, Tauro, Aries",
+    "Personalidad o carácter del usuario": "Frescx / natural",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "18 a 35 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "117",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Aventura Floral",
+    "Inspirado en": "Nomade Chloé",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "aventura_floral",
+    "Descripción olfativa": "Un Chipre Floral moderno y amaderado. La dulzura de la Ciruela Mirabelle y la frescura de la Freesia se fusiona con un fondo de Musgo de Roble y Pachulí. Una fragancia que evoca la libertad, la aventura y la elegancia bohemia.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Ciruela, Bergamota, Litchi",
+    "Notas de corazón": "Fresia, Rosa, Jazmín",
+    "Notas de fondo": "Musgo, Cedro, Ámbar",
+    "Familia olfativa": "Floral amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Sagitario, Aries, Leo",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Empoderadx / segurx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Templado / Variable",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "118",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Eterna Belleza",
+    "Inspirado en": "J'adore Dior",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "eterna_belleza",
+    "Descripción olfativa": "Un Floral opulento y radiante. Un bouquet dorado donde la Ylang-Ylang de Comoras, el Jazmín Sambac y la Rosa Damascena crean una armonía perfecta. Una fragancia luminosa y ultra-femenina, símbolo de absoluta sofisticación.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Ylang-ylang, Melón, Durazno",
+    "Notas de corazón": "Jazmín, Rosa, Violeta",
+    "Notas de fondo": "Sándalo, Almizcle, Vainilla",
+    "Familia olfativa": "Floral amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Tauro, Libra, Virgo",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Románticx / soñadorx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "119",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Amanecer Mediterráneo",
+    "Inspirado en": "Acqua di Parma Colonia Acqua di Parma",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "amanecer_mediterraneo",
+    "Descripción olfativa": "Un Cítrico Aromático atemporal. La explosión de Limón, Naranja y Bergamota se fusiona con el corazón aromático de la Lavanda y el Romero. El fondo de Sándalo y Vetiver lo hace pulcro, limpio y sofisticado.",
+    "Género / Público": "Unisex",
+    "Notas de salida": "Limón, Bergamota, Naranja",
+    "Notas de corazón": "Lavanda, Rosas, Geranios",
+    "Notas de fondo": "Vetiver, Sándalo, Almizcle",
+    "Familia olfativa": "Cítrica floral",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Virgo, Tauro, Capricornio",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "30 a 60 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "120",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Calidez Exótica",
+    "Inspirado en": "Amber Oud Gold Edition Al Haramain Perfumes",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "calidez_exotica",
+    "Descripción olfativa": "Un Oriental Ambarino de lujo. La calidez envolvente del Ámbar y la Vainilla se fusiona con la intensidad de la Pimienta Rosa y el Azafrán. El fondo de Madera de Cedro lo hace denso, dulce y con una sofisticación misteriosa.",
+    "Género / Público": "Unisex",
+    "Notas de salida": "Bergamota, Limón, Pimienta",
+    "Notas de corazón": "Canela, Flor de azahar",
+    "Notas de fondo": "Ámbar, Madera de cedro, Vainilla",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Escorpio, Capricornio, Tauro",
+    "Personalidad o carácter del usuario": "Misteriosx / seductorx",
+    "Estilo de vida del usuario": "Sofisticadx / refinadx",
+    "Edad del usuario": "35 a 55 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "121",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Esencia Exquisita",
+    "Inspirado en": "Amber Rouge Orientica Premium",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "esencia_exquisita",
+    "Descripción olfativa": "Un Oriental Especiado Opulento. La calidez del Ámbar y el Incienso se fusiona con la chispa del Azafrán y la Pera. El corazón de Rosa Búlgara lo hace rico, envolvente y de una estela inolvidable.",
+    "Género / Público": "Unisex",
+    "Notas de salida": "Frambuesa, Azafrán, Naranja",
+    "Notas de corazón": "Rosa, Jazmín, Lirio",
+    "Notas de fondo": "Ámbar, Madera de cedro, Almizcle",
+    "Familia olfativa": "Oriental amaderada",
+    "Ocasión de uso": "Noches / eventos especiales",
+    "Signos zodiacales asociados": "Escorpio, Tauro, Leo",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Audaz / modernx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Nocturnas"
+  },
+  {
+    "Código único del perfume": "122",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "El Aire Limpio",
+    "Inspirado en": "Blanche Byredo",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "el_aire_limpio",
+    "Descripción olfativa": "Un Floral Aldehídico Almizclado. La recreación olfativa de la limpieza, con un acorde de Aldehídos, Algodón Limpio y Rosa Blanca. El fondo de Sándalo y Almizcle lo hace puro, minimalista y de una sofisticación cristalina.",
+    "Género / Público": "Unisex",
+    "Notas de salida": "Rosa, Limón, Aldehídos",
+    "Notas de corazón": "Flor de naranjo, Peonía, Almizcle",
+    "Notas de fondo": "Ámbar, Almizcle, Madera",
+    "Familia olfativa": "Floral amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Aries, Tauro, Cáncer",
+    "Personalidad o carácter del usuario": "Frescx / natural",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "20 a 40 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "123",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Clásico Refrescante",
+    "Inspirado en": "Allure Homme Edition Blanche Chanel",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "clasico_refrescante",
+    "Descripción olfativa": "Un Oriental Amaderado Cítrico. La explosión de Limón Siciliano y Bergamota se fusiona con un toque especiado de Pimienta Rosa. El fondo de Vainilla de Madagascar y Sándalo lo hace cremoso, elegante y con una frescura cálida.",
+    "Género / Público": "Unisex",
+    "Notas de salida": "Limón, Naranja, Bergamota",
+    "Notas de corazón": "Jengibre, Pimienta, Canela",
+    "Notas de fondo": "Sándalo, Almizcle, Vetiver",
+    "Familia olfativa": "Amaderada especiada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Virgo, Capricornio, Sagitario",
+    "Personalidad o carácter del usuario": "Elegante / sofisticadx",
+    "Estilo de vida del usuario": "Empoderadx / segurx",
+    "Edad del usuario": "25 a 50 años",
+    "Clima equivalente en Colombia": "Frío / Lluvioso / Nublado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "124",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Bosque Mediterráneo",
+    "Inspirado en": "Philosykos Eau de Parfum Diptyque",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "bosque_mediterraneo",
+    "Descripción olfativa": "Un Amaderado Verde Hiperrealista. La fragancia evoca la totalidad de la higuera: la frescura verde de la Hoja de Higuera, la dulzura de la Leche de Higo y el cuerpo seco de la Madera de Cedro. Una celebración de lo natural y minimalista.",
+    "Género / Público": "Unisex",
+    "Notas de salida": "Higo, Hojas de higuera, Hinojo",
+    "Notas de corazón": "Higuera, Madera de cedro",
+    "Notas de fondo": "Madera, Almizcle, Sándalo",
+    "Familia olfativa": "Verde afrutada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Tauro, Libra, Cáncer",
+    "Personalidad o carácter del usuario": "Serenx / equilibradx",
+    "Estilo de vida del usuario": "Actvx / equilibradx",
+    "Edad del usuario": "30 a 50 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "125",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "El Jardín Flotante",
+    "Inspirado en": "Un Jardin Sur Le Nil Hermès",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "el_jardin_flotante",
+    "Descripción olfativa": "Un Floral Verde Acuático. Un viaje olfativo al Nilo, con la frescura ácida del Mango Verde y la Toronja. El corazón de Flor de Loto y Sicomoro (Madera de Higuera) lo hace vibrante, acuático y evocador de un jardín en el trópico.",
+    "Género / Público": "Unisex",
+    "Notas de salida": "Pomelo, Mango verde, Naranja",
+    "Notas de corazón": "Iris, Loto, Cáscara de mandarina",
+    "Notas de fondo": "Cedro, Almizcle, Incienso",
+    "Familia olfativa": "Cítrica floral",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Piscis, Tauro, Libra",
+    "Personalidad o carácter del usuario": "Joven / optimista",
+    "Estilo de vida del usuario": "Optimistx / alegre",
+    "Edad del usuario": "25 a 50 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "126",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Frescura Natural",
+    "Inspirado en": "Wood Sage & Sea Salt Jo Malone London",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "frescura_natural",
+    "Descripción olfativa": "Un Aromático Acuático mineral. La frescura salina del Acorde de Sal Marina y la Almendra se fusiona con las notas herbales de la Salvia. Evoca la brisa marina, las rocas húmedas y una sensación de libertad natural.",
+    "Género / Público": "Unisex",
+    "Notas de salida": "Sal marina, Pomelo, Limón",
+    "Notas de corazón": "Salvia, Hiedra, Geranio",
+    "Notas de fondo": "Ámbar, Almizcle, Madera",
+    "Familia olfativa": "Acuática amaderada",
+    "Ocasión de uso": "Uso diario / actividades cotidianas",
+    "Signos zodiacales asociados": "Tauro, Piscis, Cáncer",
+    "Personalidad o carácter del usuario": "Frescx / natural",
+    "Estilo de vida del usuario": "Optimistx / alegre",
+    "Edad del usuario": "25 a 45 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "127",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Herencia Rosa",
+    "Inspirado en": "Paris Hilton Paris Hilton",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "herencia_rosa",
+    "Descripción olfativa": "Un Floral Frutal de coquetería. La dulzura exótica de la Manzana y el Melón se fusiona con un corazón de Mimosa y Fresia. El fondo de Sándalo y Almizcle lo hace brillante, fresco y juvenil.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Manzana, melón, durazno, notas ozónicas",
+    "Notas de corazón": "Fresia, mimosa, jazmín, lirio de los valles",
+    "Notas de fondo": "Almizcle, sándalo, ylang-ylang, musgo de roble",
+    "Familia olfativa": "Floral frutal",
+    "Ocasión de uso": "Citas y salidas informales",
+    "Signos zodiacales asociados": "Géminis, Leo, Libra y Sagitario",
+    "Personalidad o carácter del usuario": "Joven / optimista",
+    "Estilo de vida del usuario": "Creativx / expresivx",
+    "Edad del usuario": "15 a 30 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  },
+  {
+    "Código único del perfume": "128",
+    "Nombre en Aa’in (Alma, Corazón y Espíritu)": "Dulce Aurora",
+    "Inspirado en": "Good Girl Blush Carolina Herrera",
+    "Imagen de referencia": "",
+    "Nombre de imagen": "dulce_aurora",
+    "Descripción olfativa": "Un Floral Frutal empolvado. La luminosidad de la Bergamota y la Mandarina se fusiona con un doble corazón de Peonía y Ylang-Ylang. El fondo de Vainilla y Haba Tonka lo hace dulce, suave y con una ternura elegante.",
+    "Género / Público": "Mujer",
+    "Notas de salida": "Bergamota, mandarina, pimienta rosa",
+    "Notas de corazón": "Peonía, rosa, ylang-ylang",
+    "Notas de fondo": "Vainilla, tonka, pachuli",
+    "Familia olfativa": "Floral – Ambarada – Dulce y fresca",
+    "Ocasión de uso": "Citas y salidas informales",
+    "Signos zodiacales asociados": "Libra, Piscis, Cáncer, Tauro y Virgo",
+    "Personalidad o carácter del usuario": "Románticx / delicadx",
+    "Estilo de vida del usuario": "Románticx / soñadorx",
+    "Edad del usuario": "18 a 35 años",
+    "Clima equivalente en Colombia": "Templado / Soleado",
+    "Ocasiones nocturnas o diurnas": "Diurnas"
+  }
+];
+
+/* ================================
+   3) Normalización y Estado
+================================ */
+const perfumesData = perfumesRaw.map((p, i) => ({
+    id: i + 1,
+    sku: p["Código único del perfume"],
+    nombre: p["Nombre en Aa’in (Alma, Corazón y Espíritu)"] || p["Nombre en Aa’in"], 
+    inspirado: p["Inspirado en"],
+    genero: p["Género / Público"],
+    ocasion: p["Ocasión de uso"],
+    signos: p["Signos zodiacales asociados"],
+    imagenAain: p["Imagen de referencia"] || "",
+    imagenFile: p["Nombre de imagen"], 
+    descripcion: p["Descripción olfativa"],
+    notasSalida: p["Notas de salida"],
+    notasCorazon: p["Notas de corazón"],
+    notasFondo: p["Notas de fondo"],
+    familia: p["Familia olfativa"],
+    personalidad: p["Personalidad o carácter del usuario"],
+    estiloVida: p["Estilo de vida del usuario"],
+    rangoEdad: p["Edad del usuario"],
+    clima: p["Clima equivalente en Colombia"],
+    usoDiaNoche: p["Ocasiones nocturnas o diurnas"]
+}));
+
+let filteredResults = [...perfumesData];
+let cart = []; // Estado del carrito de compras
+
+/* ================================
+   4) Utilidades y Mapeos
+================================ */
+const zodiacSymbols = { /* ... (Mismo mapeo de símbolos) ... */
+    "Aries": "♈", "Tauro": "♉", "Géminis": "♊", "Cáncer": "♋", "Leo": "♌", "Virgo": "♍",
+    "Libra": "♎", "Escorpio": "♏", "Sagitario": "♐", "Capricornio": "♑", "Acuario": "♒", "Piscis": "♓"
+};
+
+function getDayNightIcon(usage) { /* ... (Misma lógica de iconos) ... */
+    const diurna = '☀️';
+    const nocturna = '🌙';
+    const ambos = '☀️🌙'; 
+    switch (usage.toLowerCase().trim()) {
+        case 'diurnas': return diurna;
+        case 'nocturnas': return nocturna;
+        case 'ambos': case 'mixto': return ambos;
+        default: return '';
+    }
+}
+
+
+/* ================================
+   5) LÓGICA DEL CARRITO
+================================ */
+
+function renderCartIcon() {
+    const icon = document.getElementById("cart-icon");
+    const countSpan = document.getElementById("cart-count");
+    
+    // Calcula el número total de artículos (suma de cantidades)
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    if (totalItems > 0) {
+        icon.classList.remove("hidden");
+        countSpan.classList.remove("hidden");
+        countSpan.textContent = totalItems;
+        // Solo si existe el botón en el DOM (en el carrito), actualiza el disabled
+        const checkoutButton = document.getElementById("btn-checkout");
+        if(checkoutButton) checkoutButton.disabled = false;
+    } else {
+        icon.classList.add("hidden");
+        countSpan.classList.add("hidden");
+        countSpan.textContent = '0';
+        const checkoutButton = document.getElementById("btn-checkout");
+        if(checkoutButton) checkoutButton.disabled = true;
+    }
+}
+
+function addToCart(e) {
+    e.preventDefault();
+    closeModal('perfume-modal'); // Cierra el modal de detalles
+    
+    const form = e.target;
+    const perfumeId = parseInt(form.dataset.id);
+    const selectedSizeInput = form.querySelector('input[name="perfume-size"]:checked');
+
+    if (!selectedSizeInput) {
+        alert("Por favor, selecciona una presentación (tamaño) antes de añadir al carrito.");
+        return;
+    }
+    
+    const selectedVolume = selectedSizeInput.value;
+    const perfume = perfumesData.find(p => p.id === perfumeId);
+    const sizeOption = priceOptions.find(o => o.volume === selectedVolume);
+
+    if (!perfume || !sizeOption) {
+        console.error("Error al encontrar el perfume o la opción de tamaño.");
+        return;
+    }
+    
+    // Identificador único para cada combinación de producto+tamaño
+    const itemId = `${perfumeId}-${selectedVolume}`; 
+
+    // Revisa si ya está en el carrito
+    const existingItemIndex = cart.findIndex(item => item.id === itemId);
+
+    if (existingItemIndex > -1) {
+        // Si ya existe, solo incrementa la cantidad
+        cart[existingItemIndex].quantity += 1;
+    } else {
+        // Si no existe, añade el nuevo artículo
+        cart.push({
+            id: itemId,
+            perfumeId: perfume.id,
+            name: perfume.nombre,
+            size: selectedVolume,
+            unitPrice: sizeOption.price,
+            displayPrice: sizeOption.display,
+            quantity: 1,
+        });
+    }
+
+    renderCartIcon();
+    
+    // Opcional: abrir el carrito para que el usuario lo vea
+    openCartModal();
+}
+
+function updateQuantity(itemId, change) {
+    const itemIndex = cart.findIndex(item => item.id === itemId);
+
+    if (itemIndex > -1) {
+        cart[itemIndex].quantity += change;
+
+        // Asegura que la cantidad no sea menor a 1
+        if (cart[itemIndex].quantity < 1) {
+            cart[itemIndex].quantity = 1;
+        }
+        
+        // Vuelve a renderizar el carrito y el icono
+        renderCartModal();
+        renderCartIcon();
+    }
+}
+
+function removeItem(itemId) {
+    cart = cart.filter(item => item.id !== itemId);
+    
+    // Vuelve a renderizar el carrito y el icono
+    renderCartModal();
+    renderCartIcon();
+}
+
+function renderCartItem(item) {
+    const subtotal = formatPrice(item.unitPrice * item.quantity);
+
+    return `
+        <div class="flex items-center justify-between p-4 mb-4 bg-gray-50 border border-gray-200 rounded-lg">
+            <div class="flex-grow">
+                <p class="font-bold text-lg text-[--aa-in-dark]">${item.name}</p>
+                <p class="text-sm text-gray-600">${item.size} - ${item.displayPrice} c/u</p>
+                <p class="font-semibold mt-1">Subtotal: ${subtotal}</p>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+                <button onclick="updateQuantity('${item.id}', -1)"
+                        class="bg-gray-200 text-gray-800 w-8 h-8 rounded-full hover:bg-gray-300 transition">-</button>
+                <span class="font-bold w-6 text-center">${item.quantity}</span>
+                <button onclick="updateQuantity('${item.id}', 1)"
+                        class="bg-gray-200 text-gray-800 w-8 h-8 rounded-full hover:bg-gray-300 transition">+</button>
+                <button onclick="removeItem('${item.id}')"
+                        class="text-red-600 hover:text-red-800 transition ml-4" title="Eliminar">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+function openCartModal() {
+    renderCartModal();
+    document.getElementById("cart-modal").classList.remove("hidden");
+}
+
+function renderCartModal() {
+    const container = document.getElementById("cart-items-container");
+    const totalElement = document.getElementById("cart-total");
+    
+    if (cart.length === 0) {
+        container.innerHTML = '<p class="text-center text-gray-500 italic p-6 border rounded-lg">Tu carrito está vacío. ¡Añade algunos perfumes!</p>';
+        totalElement.textContent = formatPrice(0);
+        document.getElementById("btn-checkout").disabled = true;
+        return;
+    }
+
+    const total = cart.reduce((sum, item) => sum + (item.unitPrice * item.quantity), 0);
+    
+    container.innerHTML = cart.map(renderCartItem).join('');
+    totalElement.textContent = formatPrice(total);
+    document.getElementById("btn-checkout").disabled = false;
+}
+
+function checkoutWhatsapp() {
+    if (whatsappNumber === "TUNUMERO") {
+        alert("El número de WhatsApp no ha sido configurado. Por favor, edita la variable 'whatsappNumber' en el código JS.");
+        return;
+    }
+    if (cart.length === 0) {
+        alert("El carrito está vacío.");
+        return;
+    }
+
+    // 1. Crear el encabezado del mensaje
+    let message = "¡Hola! Estoy listo/a para finalizar mi pedido de Aa'in. \n\n";
+    message += "*Detalle del Pedido*:\n\n"; // Ícono 📝 eliminado
+
+    let total = 0;
+    
+    // 2. Recorrer los ítems del carrito
+    cart.forEach((item, index) => {
+        const subtotal = item.unitPrice * item.quantity;
+        total += subtotal;
+        
+        // Formato para cada ítem: Nombre (SKU) - Tamaño - Cantidad x Precio Unitario = Subtotal
+        message += `${index + 1}. *${item.name}* (${item.size})\n`;
+        message += `   • Cantidad: ${item.quantity}\n`;
+        message += `   • Precio Unitario: ${formatPrice(item.unitPrice)}\n`;
+        message += `   • Subtotal: ${formatPrice(subtotal)}\n\n`;
+    });
+
+    // 3. Agregar el total y el mensaje de cierre
+    message += `------------------------------\n`;
+    // Ícono 💰 eliminado y texto modificado
+    message += `*TOTAL A PAGAR (ENVÍO NO INCLUIDO): ${formatPrice(total)}*\n`; 
+    message += `------------------------------\n\n`;
+    message += `Por favor, ayúdame a confirmar la disponibilidad y el método de pago/envío. ¡Gracias!`;
+
+    // 4. Redirigir a WhatsApp
+    const encodedMessage = encodeURIComponent(message);
+    const url = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    window.open(url, '_blank');
+}
+
+
+/* ================================
+   6) Lógica de Filtros y Renderizado
+================================ */
+function initFilters() {
+    const generoOptions = ["Mujer", "Hombre", "Unisex"];
+    const familiaOptions = ["Cítrica", "Floral", "Aldehídica", "Amaderada", "Oriental", "Fougère", "Chipre", "Oriental Amaderada", "Chipre Frutal"];
+    const ocasionOptions = ["Eventos formales / ceremonias", "Uso diario / actividades cotidianas", "Noches / eventos especiales", "Citas y salidas informales"];
+    const signosOptions = ["Aries","Tauro","Géminis","Cáncer","Leo","Virgo", "Libra","Escorpio","Sagitario","Capricornio","Acuario","Piscis"];
+    
+    // NUEVO: Opciones dinámicas para Nombre y Inspirado
+    const nombreOptions = [...new Set(perfumesData.map(p => p.nombre))].sort();
+    const inspiradoOptions = [...new Set(perfumesData.map(p => p.inspirado))].sort();
+
+
+    const createTomSelect = (id, optionsArray) => {
+        new TomSelect(id, {
+            options: optionsArray.map(v => ({value:v, text:v})),
+            maxItems: 50,
+            plugins: ['remove_button']
+        });
+    }
+
+    // NUEVOS FILTROS INICIALIZADOS
+    createTomSelect("#filter-nombre", nombreOptions);
+    createTomSelect("#filter-inspirado", inspiradoOptions);
+    
+    // FILTROS EXISTENTES
+    createTomSelect("#filter-genero", generoOptions);
+    createTomSelect("#filter-familia", familiaOptions);
+    createTomSelect("#filter-ocasion", ocasionOptions);
+    createTomSelect("#filter-signos", signosOptions);
+}
+
+function applyFilters() {
+    // NUEVOS FILTROS OBTENIDOS
+    const nombre = document.getElementById("filter-nombre").tomselect.getValue();
+    const inspirado = document.getElementById("filter-inspirado").tomselect.getValue();
+    
+    // FILTROS EXISTENTES OBTENIDOS
+    const genero = document.getElementById("filter-genero").tomselect.getValue();
+    const familia = document.getElementById("filter-familia").tomselect.getValue();
+    const ocasion = document.getElementById("filter-ocasion").tomselect.getValue();
+    const signos = document.getElementById("filter-signos").tomselect.getValue();
+
+    filteredResults = perfumesData.filter(p => {
+        // NUEVA LÓGICA DE FILTRADO
+        if (nombre.length && !nombre.includes(p.nombre)) return false;
+        if (inspirado.length && !inspirado.includes(p.inspirado)) return false;
+        
+        // LÓGICA DE FILTRADO EXISTENTE
+        if (genero.length && !genero.includes(p.genero)) return false;
+        if (familia.length && !familia.includes(p.familia)) return false;
+        if (ocasion.length && !ocasion.includes(p.ocasion)) return false;
+        if (signos.length) {
+            const listaSignos = p.signos.split(",").map(s => s.trim());
+            if (!signos.some(s => listaSignos.includes(s))) return false;
+        }
+        return true;
+    });
+    renderList();
+}
+
+function createCard(p) {
+    const imagePath = p.imagenFile 
+        ? `imagenes/${p.imagenFile}.jpg` 
+        : 'https://placehold.co/400x400/EEE4F1/333?text=Aa%27in';
+
+    return `
+    <div class="bg-white rounded-xl shadow hover:shadow-xl cursor-pointer transition"
+         onclick="openModal(${p.id})">
+
+        <img src="${imagePath}" class="w-full h-48 object-cover rounded-t-xl"
+             onerror="this.src='https://placehold.co/400x400/EEE4F1/333?text=Aa%27in'">
+
+        <div class="p-4">
+            <h3 class="text-xl font-bold">${p.nombre}</h3>
+            <p class="text-[--aa-in-primary] text-sm mb-1">${p.familia}</p>
+            <p class="text-gray-600 text-sm truncate">${p.descripcion}</p>
+        </div>
+    </div>
+    `;
+}
+
+function renderList() {
+    const container = document.getElementById("perfume-list");
+    const notFound = document.getElementById("no-results");
+
+    if (filteredResults.length === 0) {
+        notFound.classList.remove("hidden");
+        container.innerHTML = "";
+        return;
+    }
+
+    notFound.classList.add("hidden");
+    container.innerHTML = filteredResults.map(createCard).join("");
+}
+
+/* ================================
+   7) Lógica de Modales
+================================ */
+function openModal(id) {
+    const p = perfumesData.find(x => x.id === id);
+    if (!p) return;
+
+    // --- Mapeo de Contenido ---
+    const contentMap = {
+        'modal-nombre': p.nombre, 'modal-inspirado': `Inspirado en: ${p.inspirado}`, 
+        'modal-sku': p.sku, 
+        'modal-genero': p.genero,
+        'modal-rango-edad': p.rangoEdad,       
+        'modal-familia': p.familia, 
+        'modal-ocasion': p.ocasion, 
+        'modal-clima': p.clima, 
+        'modal-personalidad': p.personalidad, 
+        'modal-estilo-vida': p.estiloVida, 
+        'modal-descripcion': p.descripcion,
+        'modal-notas-salida': p.notasSalida, 'modal-notas-corazon': p.notasCorazon,
+        'modal-notas-fondo': p.notasFondo,
+    };
+
+    Object.entries(contentMap).forEach(([id, content]) => {
+        const element = document.getElementById(id);
+        if (element) element.textContent = content;
+    });
+    
+    // --- Uso Día / Noche (Solo Ícono, tamaño MUY AUMENTADO a text-7xl) ---
+    const usoDiaNocheContainer = document.getElementById('modal-uso-dia-noche-container');
+    if (usoDiaNocheContainer) {
+        // Tamaño de fuente text-7xl para los iconos de Día/Noche
+        usoDiaNocheContainer.innerHTML = `<span class="text-7xl">${getDayNightIcon(p.usoDiaNoche)}</span>`; 
+    }
+
+    // --- Signos Zodiacales ---
+    const signosList = document.getElementById("modal-signos-list");
+    signosList.innerHTML = ''; 
+    if (p.signos) {
+        const signosArray = p.signos.split(",").map(s => s.trim());
+        signosArray.forEach(signo => {
+            const symbol = zodiacSymbols[signo] || '★'; 
+            const listItem = document.createElement('li');
+            listItem.className = 'flex items-center text-base font-semibold text-[--aa-in-text-dark]'; 
+            listItem.innerHTML = `<span class="zodiac-symbol">${symbol}</span> ${signo}`;
+            signosList.appendChild(listItem);
+        });
+    }
+
+    // --- Lógica de Imagen ---
+    const img = document.getElementById("modal-imagen");
+    let imagePath = p.imagenFile ? `imagenes/${p.imagenFile}.jpg` : 'https://placehold.co/400x400/EEE4F1/333?text=Aa%27in'; 
+    img.src = imagePath;
+    img.onerror = () => img.src = "https://placehold.co/400x400/EEE4F1/333?text=Aa%27in";
+    
+    // --- Inyección del Selector de Tamaño ---
+    const sizesContainer = document.getElementById("modal-sizes-container");
+    sizesContainer.innerHTML = priceOptions.map((item, index) => `
+        <div>
+            <input type="radio" id="size-${item.volume}" name="perfume-size" value="${item.volume}" class="hidden" ${index === 0 ? 'checked' : ''}>
+            <label for="size-${item.volume}" class="size-radio-label">
+                <span class="font-bold text-lg">${item.volume}</span><br>
+                <span class="text-xs">${item.display}</span>
+            </label>
+        </div>
+    `).join('');
+    
+    // Asigna el ID del perfume al formulario para saber qué se va a añadir
+    document.getElementById("add-to-cart-form").dataset.id = id;
+
+    // Asegúrate de que el handler esté asociado
+    const form = document.getElementById("add-to-cart-form");
+    form.onsubmit = addToCart;
+
+    document.getElementById("perfume-modal").classList.remove("hidden");
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.add("hidden");
+}
+
+// FUNCIÓN para el contador total (existente, se mantiene)
+function renderTotalCount() {
+    const countElement = document.getElementById("total-perfumes-count");
+    if (countElement) {
+        // perfumesData tiene todos los perfumes cargados desde el JSON
+        countElement.textContent = perfumesData.length;
+    }
+}
+
+
+/* ================================
+   8) Init y Eventos
+================================ */
+initFilters();
+renderList();
+renderCartIcon(); // Inicializa el icono al cargar
+renderTotalCount(); // Llama a la nueva función de contador total
+
+// Función dedicada para resetear los filtros de Tom Select
+function resetFilters() {
+    const filterIds = [
+        "filter-nombre",      
+        "filter-inspirado",   
+        "filter-genero",
+        "filter-familia",
+        "filter-ocasion",
+        "filter-signos"
+    ];
+    filterIds.forEach(id=>{
+        const selectElement = document.getElementById(id);
+        if (selectElement && selectElement.tomselect) {
+            selectElement.tomselect.clear();
+        }
+    });
+    filteredResults = [...perfumesData];
+    renderList();
+}
+
+/* Botones y Eventos */
+document.getElementById("btn-buscar").addEventListener("click", applyFilters);
+document.getElementById("btn-reset").addEventListener("click", resetFilters);
+
+// Cierre de los modales con la tecla Escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        if (!document.getElementById('perfume-modal').classList.contains('hidden')) {
+            closeModal('perfume-modal');
+        }
+        if (!document.getElementById('cart-modal').classList.contains('hidden')) {
+            closeModal('cart-modal');
+        }
+    }
+});
+</script>
+
+</body>
+</html>
